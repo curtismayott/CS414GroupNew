@@ -81,4 +81,8 @@ public class MainMenuListener extends MyActionListener {
             default: break;
         }
     }
+    public void clearEmployee() {
+        //breaking MVC pattern... sorry
+        model.clearLoggedInEmployee();
+    }
 }

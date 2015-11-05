@@ -28,7 +28,7 @@ public class CustomerListener extends MyActionListener {
         switch (actionEvent.getActionCommand()){
             case "Cancel":
                 clearEditTextFields();
-                manager.activateWindow("customer", "orderList");
+                manager.activateWindow(manager.CUSTOMER, manager.ORDER_LIST);
                 break;
             case "Clear":
                 clearEditTextFields();
@@ -88,5 +88,6 @@ public class CustomerListener extends MyActionListener {
         }else{
             clearEditTextFields();
         }
+        components.get("phoneEditText").requestFocus();
     }
 }

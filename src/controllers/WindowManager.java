@@ -1,5 +1,4 @@
 package controllers;
-
 import objects.Register;
 import views.*;
 
@@ -51,8 +50,6 @@ public class WindowManager implements WindowStateListener {
     }
 
     public void activateWindow(String oldWindow, String newWindow){
-        views.get(oldWindow).setVisible(false);
-        views.get(newWindow).setVisible(true);
         if(newWindow.equals(MAKE_LINE)){
             ((MakelineView)views.get(MAKE_LINE)).setOrderList();
             ((MakelineView)views.get(MAKE_LINE)).setItemList();
@@ -61,8 +58,11 @@ public class WindowManager implements WindowStateListener {
             (controllers.get(newWindow)).resetView();
         }
         if(newWindow.equals(MAIN_MENU)){
-            ((MainMenuView)views.get(MAIN_MENU)).clearEmployee();
+            ((MainMenuListener)controllers.get(MAIN_MENU)).clearEmployee();
         }
+        System.out.println(oldWindow + " is closing..." + newWindow + " is opening");
+        views.get(oldWindow).setVisible(false);
+        views.get(newWindow).setVisible(true);
     }
 
     public void init(){
