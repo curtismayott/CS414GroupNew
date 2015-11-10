@@ -51,6 +51,13 @@ public class CustomerListener extends MyActionListener {
                 System.out.println("CustomerListener OrderID about to send: " + order.getOrderID());
                 order.setCustomer(person);
             }
+            if(((JComboBox)components.get("orderTypeCombo")).getSelectedItem().equals("Pickup")){
+                order.setOrderType(ORDER_TYPE.PICK_UP);
+            }else if(((JComboBox)components.get("orderTypeCombo")).getSelectedItem().equals("Carry Out")){
+                order.setOrderType(ORDER_TYPE.CARRY_OUT);
+            }else if(((JComboBox)components.get("orderTypeCombo")).getSelectedItem().equals("Delivery")){
+                order.setOrderType(ORDER_TYPE.DELIVERY);
+            }
 
             System.out.println("OrderID: " + orderID);
             manager.passOrderID(manager.ORDER_EDIT, orderID);

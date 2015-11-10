@@ -58,7 +58,8 @@ public class Order {
         return getOrderID() + "   "
                 + getCustomer().getPhoneNumbers().get(0)
                 + "   " + getCustomer().getName()
-                + "   " + getOrderTotal();
+                + "   " + getOrderTotal()
+                + "   " + getOrderType().toString();
     }
 
     public int getOrderID() {
