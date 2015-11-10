@@ -58,23 +58,31 @@ public class OrderEditListener extends MyActionListener implements ListSelection
                 ((JTextField)components.get("totalDisplay")).setText(model.TOTAL_TEXT + order.getOrderTotal());
                 break;
             case "Cancel Item":
-                if(((JButton)components.get("addPizzaButton")).getText().equals("Pizza")){
-                    ((JButton)components.get("addPizzaButton")).setText("Add");
+                if(((JButton)components.get("addPizzaButton")).getText().equals("Update")) {
+                    int delete = JOptionPane.showConfirmDialog(view,
+                            "Remove Item?",
+                            "Remove",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
+                    if (delete == 0) {
+                        ((JButton) components.get("addPizzaButton")).setText("Add");
 
-                    Pizza removedPizza = null;
-                    for(Pizza p : order.getPizzas()){
-                        if(p.toString().equals(((JList)components.get("pizzaList")).getSelectedValue().toString())){
-                            removedPizza = p;
+                        Pizza removedPizza = null;
+                        for (Pizza p : order.getPizzas()) {
+                            if (p.toString().equals(((JList) components.get("pizzaList")).getSelectedValue().toString())) {
+                                removedPizza = p;
+                            }
+                        }
+                        if (removedPizza != null) {
+                            order.removePizza(removedPizza);
+
+                            resetView();
+                            System.out.println(order.getPizzas().size());
                         }
                     }
-                    if(removedPizza != null){
-                        order.removePizza(removedPizza);
-
-                        resetView();
-                        System.out.println(order.getPizzas().size());
-                    }
+                    ((JList) components.get("pizzaList")).setListData(order.getOrderItems().toArray());
+                    clearPizzaSelections();
                 }
-                clearPizzaSelections();
                 break;
             case "Cancel":
                 clearPizzaSelections();
@@ -207,20 +215,8 @@ public class OrderEditListener extends MyActionListener implements ListSelection
                 }
                 ((JList)components.get("pizzaToppingsList")).setSelectedIndices(tmpIndicies);
             }else{
-                int delete = JOptionPane.showConfirmDialog(view,
-                        "Remove Item?",
-                        "Remove",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE);
-                if(delete == 0) {
-                    for(OrderItem item : order.getOrderItems()){
-                        if (buttonText.equals(item.toString())) {
-                            order.removeItem(item);
-                            break;
-                        }
-                    }
-                }
-                resetView();
+
+                //resetView();
             }
         }
     }

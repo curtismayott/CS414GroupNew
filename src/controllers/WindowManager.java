@@ -28,18 +28,22 @@ public class WindowManager implements WindowStateListener {
     public final String MENU_EDIT = "menuEdit";
 
     public WindowManager(){
-        register = new Register();
-        register.setWindowManager(this);
-        init();
-        registerMVC();
-        registerManager();
-        registerComponents();
-        for(MyJFrame jFrame : views.values()){
-            jFrame.setVisible(false);
-            jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        try {
+            register = new Register();
+            register.setWindowManager(this);
+            init();
+            registerMVC();
+            registerManager();
+            registerComponents();
+            for(MyJFrame jFrame : views.values()){
+                jFrame.setVisible(false);
+                jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            }
+            // init main menu view
+            views.get(MAIN_MENU).setVisible(true);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        // init main menu view
-        views.get(MAIN_MENU).setVisible(true);
     }
 
     @Override

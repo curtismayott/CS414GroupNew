@@ -18,7 +18,7 @@ public class Order {
     double amountPaid;
     private ArrayList<Pizza> pizzas;
     private ArrayList<SideItem> sides;
-
+    private ORDER_TYPE orderType;
     public Order() {
         pizzas = new ArrayList<>();
         sides = new ArrayList<>();
@@ -131,7 +131,6 @@ public class Order {
         }
     }
 
-
     public double getOrderTotal(){
         double totalPrice = 0.0;
         for(Pizza pizza : pizzas){
@@ -205,4 +204,8 @@ public class Order {
             sides.remove(item);
         }
     }
+
+    public ORDER_TYPE getOrderType(){ return this.orderType; }
+
+    public void setOrderType(ORDER_TYPE orderType){ this.orderType = orderType; }
 }

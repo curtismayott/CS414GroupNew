@@ -52,5 +52,4 @@ public class Employee extends Person {
     public ROLE getRole(){
         return role;
     }
-
 }

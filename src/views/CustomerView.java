@@ -23,6 +23,7 @@ public class CustomerView extends MyJFrame {
     private JButton cancelButton;
     private JButton saveButton;
     private JButton clearButton;
+    private JComboBox orderTypeCombo;
     private Order order;
     public CustomerView(){
         customerContainer.setPreferredSize(new Dimension(getToolkit().getScreenSize().width, getToolkit().getScreenSize().height));
@@ -58,9 +59,13 @@ public class CustomerView extends MyJFrame {
         controller.registerComponent("cancelButton", cancelButton);
         controller.registerComponent("clearButton", clearButton);
         controller.registerComponent("saveButton", saveButton);
-
+        controller.registerComponent("orderTypeCombo", orderTypeCombo);
+        orderTypeCombo.addItem("Delivery");
+        orderTypeCombo.addItem("Pickup");
+        orderTypeCombo.addItem("Carry Out");
         cancelButton.addActionListener(controller);
         clearButton.addActionListener(controller);
         saveButton.addActionListener(controller);
+        orderTypeCombo.addActionListener(controller);
     }
 }

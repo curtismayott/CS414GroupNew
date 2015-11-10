@@ -5,6 +5,8 @@ import controllers.CustomerListener;
 import controllers.OrderEditListener;
 import controllers.WindowManager;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +22,9 @@ public class Register {
     OrderEditListener orderEditListener;
     CollectPaymentListener collectPaymentListener;
     private WindowManager manager;
-
-    public static final String TOTAL_TEXT = "Total................";
-    public Register() {
+    public String TOTAL_TEXT = "Total.........................";
+    public Register() throws RemoteException{
+        super();
         orders = new ArrayList<>();
         employees = new ArrayList<>();
         catalog = new PizzaCatalog();

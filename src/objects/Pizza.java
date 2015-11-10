@@ -48,7 +48,6 @@ public class Pizza extends OrderItem {
         }
     }
 
-
     public ArrayList<Topping> getToppingList() {
         return toppings;
     }
@@ -89,18 +88,22 @@ public class Pizza extends OrderItem {
         setPrice(basePrice);
     }
 
+    @Override
     public double getPrice() {
         return price;
     }
 
+    @Override
     public void setPrice(double price) {
         this.price = price;
     }
 
+    @Override
     public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
 
+    @Override
     public int getOrderID() {
         return orderID;
     }

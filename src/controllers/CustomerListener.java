@@ -25,42 +25,62 @@ public class CustomerListener extends MyActionListener {
         System.out.println(actionEvent.paramString());
         // add order to register (model)
         // give ID so AddOrderView can access
-        switch (actionEvent.getActionCommand()){
-            case "Cancel":
-                clearEditTextFields();
-                manager.activateWindow(manager.CUSTOMER, manager.ORDER_LIST);
-                break;
-            case "Clear":
-                clearEditTextFields();
-                break;
-            case "Save":
-                Address address = new Address();
-                address.setStreetAddress(((JTextArea) components.get("streetEditText")).getText());
-                address.setCity(((JTextArea) components.get("cityEditText")).getText());
-                address.setState(((JTextArea) components.get("stateEditText")).getText());
-                address.setZipcode(((JTextArea) components.get("zipEditText")).getText());
+        JComponent clicked = ((JComponent)actionEvent.getSource());
+        if((components.get("cancelButton")).equals(clicked)) {
+            clearEditTextFields();
+            manager.activateWindow(manager.CUSTOMER, manager.ORDER_LIST);
+        } else if((components.get("clearButton")).equals(clicked)) {
+            clearEditTextFields();
+        } else if((components.get("saveButton")).equals(clicked)) {
+            Address address = new Address();
+            address.setStreetAddress(((JTextArea) components.get("streetEditText")).getText());
+            address.setCity(((JTextArea) components.get("cityEditText")).getText());
+            address.setState(((JTextArea) components.get("stateEditText")).getText());
+            address.setZipcode(((JTextArea) components.get("zipEditText")).getText());
 
-                Phone phone = new Phone();
-                phone.setNumber(((JTextArea) components.get("phoneEditText")).getText());
+            Phone phone = new Phone();
+            phone.setNumber(((JTextArea) components.get("phoneEditText")).getText());
 
-                Person person = new Person(((JTextArea) components.get("nameEditText")).getText(), address, phone);
+            Person person = new Person(((JTextArea) components.get("nameEditText")).getText(), address, phone);
 
-                if(order == null){
-                    order = new Order();
-                    order.setCustomer(person);
-                    orderID = model.addOrder(order);
-                }
-                else{
-                    System.out.println("CustomerListener OrderID about to send: " + order.getOrderID());
-                    order.setCustomer(person);
-                }
+            if (order == null) {
+                order = new Order();
+                order.setCustomer(person);
+                orderID = model.addOrder(order);
+            } else {
+                System.out.println("CustomerListener OrderID about to send: " + order.getOrderID());
+                order.setCustomer(person);
+            }
 
-                System.out.println("OrderID: " + orderID);
-                manager.passOrderID(manager.ORDER_EDIT, orderID);
-                manager.activateWindow(manager.CUSTOMER, manager.ORDER_EDIT);
-                orderID = -1;
-                order = null;
-                break;
+            System.out.println("OrderID: " + orderID);
+            manager.passOrderID(manager.ORDER_EDIT, orderID);
+            manager.activateWindow(manager.CUSTOMER, manager.ORDER_EDIT);
+            orderID = -1;
+            order = null;
+        }else if(actionEvent.getActionCommand().equals("comboBoxChanged")){
+            System.out.println(clicked);
+            if(((JComboBox)clicked).getSelectedItem().equals("Carry Out")){
+                ((JTextArea)(components.get("phoneEditText"))).setEditable(true);
+                ((JTextArea)(components.get("nameEditText"))).setEditable(true);
+                ((JTextArea)(components.get("streetEditText"))).setEditable(false);
+                ((JTextArea)(components.get("cityEditText"))).setEditable(false);
+                ((JTextArea)(components.get("stateEditText"))).setEditable(false);
+                ((JTextArea)(components.get("zipEditText"))).setEditable(false);
+            }else if(((JComboBox)clicked).getSelectedItem().equals("Pickup")){
+                ((JTextArea)(components.get("nameEditText"))).setEditable(true);
+                ((JTextArea)(components.get("phoneEditText"))).setEditable(false);
+                ((JTextArea)(components.get("streetEditText"))).setEditable(false);
+                ((JTextArea)(components.get("cityEditText"))).setEditable(false);
+                ((JTextArea)(components.get("stateEditText"))).setEditable(false);
+                ((JTextArea)(components.get("zipEditText"))).setEditable(false);
+            }else if(((JComboBox)clicked).getSelectedItem().equals("Delivery")){
+                ((JTextArea)(components.get("nameEditText"))).setEditable(true);
+                ((JTextArea)(components.get("phoneEditText"))).setEditable(true);
+                ((JTextArea)(components.get("streetEditText"))).setEditable(true);
+                ((JTextArea)(components.get("cityEditText"))).setEditable(true);
+                ((JTextArea)(components.get("stateEditText"))).setEditable(true);
+                ((JTextArea)(components.get("zipEditText"))).setEditable(true);
+            }
         }
     }
 
@@ -85,6 +105,31 @@ public class CustomerListener extends MyActionListener {
             ((JTextArea) components.get("cityEditText")).setText(order.getCustomer().getAddress(0).getCity());
             ((JTextArea) components.get("stateEditText")).setText(order.getCustomer().getAddress(0).getState());
             ((JTextArea) components.get("zipEditText")).setText(order.getCustomer().getAddress(0).getZipcode());
+            if(order.getOrderType() == ORDER_TYPE.PICK_UP){
+                ((JComboBox)components.get("orderTypeCombo")).setSelectedItem("Pickup");
+                ((JTextArea)(components.get("nameEditText"))).setEditable(true);
+                ((JTextArea)(components.get("phoneEditText"))).setEditable(false);
+                ((JTextArea)(components.get("streetEditText"))).setEditable(false);
+                ((JTextArea)(components.get("cityEditText"))).setEditable(false);
+                ((JTextArea)(components.get("stateEditText"))).setEditable(false);
+                ((JTextArea)(components.get("zipEditText"))).setEditable(false);
+            }else if(order.getOrderType() == ORDER_TYPE.CARRY_OUT){
+                ((JComboBox)components.get("orderTypeCombo")).setSelectedItem("Carry Out");
+                ((JTextArea)(components.get("nameEditText"))).setEditable(true);
+                ((JTextArea)(components.get("phoneEditText"))).setEditable(true);
+                ((JTextArea)(components.get("streetEditText"))).setEditable(false);
+                ((JTextArea)(components.get("cityEditText"))).setEditable(false);
+                ((JTextArea)(components.get("stateEditText"))).setEditable(false);
+                ((JTextArea)(components.get("zipEditText"))).setEditable(false);
+            }else if(order.getOrderType() == ORDER_TYPE.DELIVERY){
+                ((JComboBox)components.get("orderTypeCombo")).setSelectedItem("Delivery");
+                ((JTextArea)(components.get("nameEditText"))).setEditable(true);
+                ((JTextArea)(components.get("phoneEditText"))).setEditable(true);
+                ((JTextArea)(components.get("streetEditText"))).setEditable(true);
+                ((JTextArea)(components.get("cityEditText"))).setEditable(true);
+                ((JTextArea)(components.get("stateEditText"))).setEditable(true);
+                ((JTextArea)(components.get("zipEditText"))).setEditable(true);
+            }
         }else{
             clearEditTextFields();
         }
