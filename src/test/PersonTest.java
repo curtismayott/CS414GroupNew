@@ -1,15 +1,14 @@
 package test;
 
-import objects.Address;
-import objects.Person;
-import objects.Phone;
+import server.objects.Address;
+import server.objects.Person;
+import server.objects.Phone;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 /** 

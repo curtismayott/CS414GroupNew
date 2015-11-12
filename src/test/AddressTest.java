@@ -1,12 +1,11 @@
 package test;
 
 
-import objects.Address;
+import server.objects.Address;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 /** 

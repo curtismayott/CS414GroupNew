@@ -1,9 +1,9 @@
 package test;
 
-import objects.Address;
-import objects.Order;
-import objects.Person;
-import objects.Phone;
+import server.objects.Address;
+import server.objects.Order;
+import server.objects.Person;
+import server.objects.Phone;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

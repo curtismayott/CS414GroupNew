@@ -1,14 +1,13 @@
 package test;
 
-import objects.Address;
-import objects.Employee;
-import objects.Phone;
-import objects.ROLE;
+import server.objects.Address;
+import server.objects.Employee;
+import server.objects.Phone;
+import server.objects.ROLE;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 /** 

@@ -1,9 +1,9 @@
 package test;
 
-import objects.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import server.objects.*;
 
 import java.util.ArrayList;
 
