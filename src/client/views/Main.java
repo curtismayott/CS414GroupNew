@@ -1,7 +1,7 @@
 package client.views;
 
 import client.controllers.Client;
-import server.controllers.MyServer;
+import server.controllers.Server;
 import server.controllers.WindowManager;
 
 /**
@@ -10,9 +10,7 @@ import server.controllers.WindowManager;
 public class Main {
 
     public static void main(String[] args){
-
-        MyServer server = new MyServer();
-        Client client = new Client();
+        
         WindowManager manager = new WindowManager();
 
     }
