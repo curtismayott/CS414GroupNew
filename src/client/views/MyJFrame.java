@@ -1,7 +1,7 @@
 package client.views;
 
 import server.controllers.MyActionListener;
-import server.controllers.WindowManager;
+import client.controllers.WindowManager;
 import server.objects.Register;
 
 import javax.swing.*;

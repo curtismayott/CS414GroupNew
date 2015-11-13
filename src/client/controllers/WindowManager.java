@@ -1,5 +1,6 @@
-package server.controllers;
+package client.controllers;
 import client.views.*;
+import server.controllers.*;
 import server.objects.Register;
 
 import javax.swing.*;
