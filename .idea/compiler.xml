@@ -20,7 +20,6 @@
     </annotationProcessing>
   </component>
   <component name="RmicSettings">
-    <option name="IS_EANABLED" value="true" />
     <option name="DEBUGGING_INFO" value="false" />
     <option name="GENERATE_NO_WARNINGS" value="true" />
   </component>
