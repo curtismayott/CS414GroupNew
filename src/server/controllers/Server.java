@@ -26,9 +26,9 @@ public class Server {
             LocateRegistry.createRegistry(PORT_NUMBER);
             ServerRemote sr = new ServerRemote();
             Naming.rebind("rmi://localhost:" + PORT_NUMBER + "/server", sr);
+            System.out.println("Server is running");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Server is running");
     }
 }
