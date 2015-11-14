@@ -1,11 +1,13 @@
 package server.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by darkbobo on 9/28/15.
  */
-public class Pizza extends OrderItem {
+public class Pizza extends OrderItem implements Serializable {
+    private static final long serialVersionUID = 6529685098267757690L;
     ArrayList<Topping> toppings;
     Sauce sauce;
     PizzaSize size;

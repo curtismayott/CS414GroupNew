@@ -1,9 +1,11 @@
 package server.objects;
 
+import java.io.Serializable;
+
 /**
  * Created by darkbobo on 9/28/15.
  */
-public class Address {
+public class Address{
     String streetAddress;
     String city;
     String state;

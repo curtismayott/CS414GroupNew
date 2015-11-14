@@ -1,11 +1,13 @@
 package server.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by darkbobo on 10/22/15.
  */
-public class PizzaCatalog {
+public class PizzaCatalog implements Serializable {
+    private static final long serialVersionUID = 6529685098267757690L;
     ArrayList<Topping> toppings;
     ArrayList<Sauce> sauces;
     ArrayList<PizzaSize> sizes;

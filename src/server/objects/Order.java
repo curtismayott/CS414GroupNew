@@ -1,5 +1,6 @@
 package server.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +12,9 @@ TODO functionality of updating order : have totalPaid, when user edits pizza, to
 */
 
 
-public class Order {
+public class Order implements Serializable {
+
+    private static final long serialVersionUID = 6529685098267757690L;
     private int orderID;
     private Person customer;
     boolean isPaidFor;

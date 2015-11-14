@@ -1,11 +1,14 @@
 package server.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by clark on 10/7/15.
  */
-public class Person {
+public class Person implements Serializable {
+
+    private static final long serialVersionUID = 6529685098267757690L;
     private String name;
     private ArrayList<Address> addresses;
     private ArrayList<Phone> phoneNumbers;

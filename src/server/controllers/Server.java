@@ -17,10 +17,6 @@ public class Server {
         try {
             LocateRegistry.createRegistry(PORT_NUMBER);
             ServerRemote sr = new ServerRemote();
-            /*
-            Registry reg = LocateRegistry.getRegistry(PORT_NUMBER);
-            reg.rebind("rmi://localhost:" + PORT_NUMBER + "/server", sr);
-            */
             Naming.rebind("rmi://localhost:" + PORT_NUMBER + "/server", sr);
         } catch (Exception e) {
             e.printStackTrace();

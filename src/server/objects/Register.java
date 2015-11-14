@@ -5,13 +5,15 @@ import server.controllers.CustomerListener;
 import server.controllers.OrderEditListener;
 import client.controllers.WindowManager;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
  * Created by darkbobo on 10/5/15.
  */
-public class Register {
+public class Register implements Serializable {
+    private static final long serialVersionUID = 6529685098267757690L;
     private ArrayList<Order> orders;
     private Employee loggedInEmployee;
     private int storeID;
