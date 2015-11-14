@@ -52,16 +52,26 @@ public class ServerRemote extends UnicastRemoteObject implements ServerInterface
     @Override
     public String printMenu() throws RemoteException {
         String temp = '\n' + "---SIZES---" + '\n';
+        int i = 0;
         for (PizzaSize ps : register.getCatalog().getSizes()){
             temp += ps.getFullName() + "    Price: " + ps.getPrice() + '\n';
         }
         temp += '\n' + "---SAUCES---" + '\n';
         for (Sauce s : register.getCatalog().getSauces()){
-            temp += s.getFullName() + '\n';
+            i++;
+            if (i % 3 == 0){
+                temp += '\n';
+            }
+            temp += s.getFullName() + '\t';
         }
         temp += '\n' + "---TOPPINGS---" + '\n';
+        i = 0;
         for (Topping pt : register.getCatalog().getToppings()){
-            temp += pt.getFullName() + '\n';
+            i++;
+            if (i % 3 == 0){
+                temp += '\n';
+            }
+            temp += "<" + pt.getFullName() + ">" + '\t';
         }
         temp += '\n' + "---SIDES---" + '\n';
         for (Side si : register.getCatalog().getSides()){
