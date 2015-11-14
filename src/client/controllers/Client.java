@@ -30,6 +30,6 @@ public class Client {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(si.printString(new Order()));
+        si.addNewOrder(new Order());
     }
 }

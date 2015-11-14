@@ -1,5 +1,7 @@
 package server.controllers;
 
+import server.objects.Register;
+
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -12,6 +14,7 @@ import java.rmi.registry.Registry;
 public class Server {
 
     private int PORT_NUMBER;
+
 
     public Server(int port){
         this.PORT_NUMBER = port;

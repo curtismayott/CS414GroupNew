@@ -25,10 +25,10 @@ public class WindowManager implements WindowStateListener {
     public final String EMPLOYEE_EDIT = "employeeEdit";
     public final String MENU_EDIT = "menuEdit";
 
-    public WindowManager(){
+    public WindowManager(Register register){
         try {
-            register = new Register();
-            register.setWindowManager(this);
+            this.register = register;
+            //register.setWindowManager(this);
             init();
             registerMVC();
             registerManager();
@@ -123,4 +123,5 @@ public class WindowManager implements WindowStateListener {
     public void passOrderID(String toController, int orderID){
         (controllers.get(toController)).setOrderID(orderID);
     }
+
 }

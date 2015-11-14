@@ -2,6 +2,7 @@ package server.controllers;
 
 import server.objects.Order;
 import server.objects.Person;
+import server.objects.Register;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -11,17 +12,24 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ServerRemote extends UnicastRemoteObject implements ServerInterface, AndroidServerInterface{
 
-    private WindowManager manager;
+    private WindowManager wm;
+    private Register register;
 
     protected ServerRemote() throws RemoteException {
         super();
-        manager = new WindowManager();
+        try {
+            register = new Register();
+            wm = new WindowManager(register);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        register.setWindowManager(wm);
     }
 
     @Override
     public boolean addNewOrder(Order order) throws RemoteException {
         System.out.println("Placeholder for add new order");
-        return false;
+        return true;
     }
 
     @Override
