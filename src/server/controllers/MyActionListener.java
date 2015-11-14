@@ -1,6 +1,5 @@
 package server.controllers;
 
-import client.controllers.WindowManager;
 import server.objects.Register;
 import client.views.MyJFrame;
 

@@ -1,6 +1,6 @@
 package client.views;
 
-import client.controllers.WindowManager;
+import server.controllers.WindowManager;
 import server.objects.Order;
 
 import javax.swing.*;

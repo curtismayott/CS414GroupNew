@@ -1,4 +1,4 @@
-package client.controllers;
+package server.controllers;
 import client.views.*;
 import server.controllers.*;
 import server.objects.Register;

@@ -1,7 +1,5 @@
 package client.views;
 
-import client.controllers.Client;
-import client.controllers.WindowManager;
 import server.controllers.Server;
 
 import java.rmi.RemoteException;

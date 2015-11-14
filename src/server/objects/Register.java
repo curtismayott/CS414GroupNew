@@ -3,7 +3,7 @@ package server.objects;
 import server.controllers.CollectPaymentListener;
 import server.controllers.CustomerListener;
 import server.controllers.OrderEditListener;
-import client.controllers.WindowManager;
+import server.controllers.WindowManager;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
