@@ -11,9 +11,17 @@ import java.rmi.registry.Registry;
  */
 public class Server {
 
-    private static int PORT_NUMBER= 9678;
+    private int PORT_NUMBER;
 
-    public static void main(String args[]) throws RemoteException {
+    public Server(int port){
+        this.PORT_NUMBER = port;
+    }
+
+    public Server(){
+        this.PORT_NUMBER = 8878;
+    }
+
+    public void runServer() throws RemoteException {
         try {
             LocateRegistry.createRegistry(PORT_NUMBER);
             ServerRemote sr = new ServerRemote();

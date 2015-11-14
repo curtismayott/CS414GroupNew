@@ -11,12 +11,22 @@ import java.rmi.RemoteException;
  */
 public class Client {
 
-    private static int PORT_NUMBER= 9678;
+    private int PORT_NUMBER;
 
-    public static void main(String args[]) throws RemoteException {
+    public Client(int port){
+        this.PORT_NUMBER = port;
+    }
+
+    public Client(){
+        this.PORT_NUMBER = 8878;
+    }
+
+
+    public void runClient() throws RemoteException {
         AndroidServerInterface si = null;
         try {
             si = (AndroidServerInterface) Naming.lookup("rmi://localhost:" + PORT_NUMBER + "/server");
+            System.out.println("Client is connected to server");
         } catch (Exception e) {
             e.printStackTrace();
         }
