@@ -1,6 +1,8 @@
 package client.controllers;
 
 import server.controllers.AndroidServerInterface;
+import server.controllers.ServerInterface;
+import server.controllers.ServerRemote;
 import server.objects.Order;
 
 import java.rmi.Naming;
@@ -23,13 +25,14 @@ public class Client {
 
 
     public void runClient() throws RemoteException {
-        AndroidServerInterface si = null;
+        ServerInterface si = null;
         try {
-            si = (AndroidServerInterface) Naming.lookup("rmi://localhost:" + PORT_NUMBER + "/server");
+            si = (ServerInterface) Naming.lookup("rmi://localhost:" + PORT_NUMBER + "/server");
             System.out.println("Client is connected to server");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        si.addNewOrder(new Order());
+        System.out.println("Employees: " + '\n' + si.printEmp());
+
     }
 }

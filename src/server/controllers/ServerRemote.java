@@ -1,5 +1,6 @@
 package server.controllers;
 
+import server.objects.Employee;
 import server.objects.Order;
 import server.objects.Person;
 import server.objects.Register;
@@ -10,7 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 /**
  * Created by Jim on 11/13/2015.
  */
-public class ServerRemote extends UnicastRemoteObject implements ServerInterface, AndroidServerInterface{
+public class ServerRemote extends UnicastRemoteObject implements ServerInterface, AndroidServerInterface, ClientServerInterface{
 
     private WindowManager wm;
     private Register register;
@@ -47,8 +48,14 @@ public class ServerRemote extends UnicastRemoteObject implements ServerInterface
         return "Working, created order";
     }
 
-    @Override
-    public String print() throws RemoteException {
-        return "It Works!";
+
+    public String printEmp() throws RemoteException {
+        String temp = "";
+        for (Employee e : register.getEmployees()){
+            temp += "Employee: " + e.getName() + '\n';
+            temp += '\t' + "username: " + e.getUserID() + "   password: " + e.getAuthentication();
+            temp += "\n\n";
+        }
+        return temp;
     }
 }
