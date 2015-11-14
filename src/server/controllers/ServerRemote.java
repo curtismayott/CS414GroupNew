@@ -1,9 +1,6 @@
 package server.controllers;
 
-import server.objects.Employee;
-import server.objects.Order;
-import server.objects.Person;
-import server.objects.Register;
+import server.objects.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -35,18 +32,8 @@ public class ServerRemote extends UnicastRemoteObject implements ServerInterface
     }
 
     @Override
-    public Person createNewCustomer() throws RemoteException {
-        return null;
-    }
-
-    @Override
     public boolean addNewCustomer(Person customer) throws RemoteException {
         return false;
-    }
-
-    @Override
-    public Person findCustomer(String name) throws RemoteException {
-        return null;
     }
 
     @Override
@@ -66,17 +53,71 @@ public class ServerRemote extends UnicastRemoteObject implements ServerInterface
     }
 
     @Override
-    public Order createNewOrder() throws RemoteException {
-        return null;
-    }
-
-    @Override
-    public Employee createNewEmployee() throws RemoteException {
-        return null;
-    }
-
-    @Override
     public boolean addEmployeeToStore(Employee hire) throws RemoteException {
+        if (!register.getEmployees().contains(hire)){
+            register.addEmployee(hire);
+            return true;
+        }
+        return false;
+
+    }
+
+    @Override
+    public boolean removeEmployee(Employee fire) throws RemoteException {
+        if (register.getEmployees().contains(fire)){
+            register.removeEmployee(fire);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addSideItemToMenu(SideItem item) throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public boolean removeSideItemFromMEnu(SideItem item) throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public boolean addNewPizzaSize(PizzaSize size) throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public boolean removePizzaSize(PizzaSize size) throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public boolean addNewTopping(Topping topping) throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public boolean removeTopping(Topping topping) throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public boolean addNewSauce(Sauce sauce) throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public boolean removeSauce(Sauce sauce) throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public boolean addNewDrink(Drink drink) throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public boolean removeDrink(Drink drink) throws RemoteException {
         return false;
     }
 }

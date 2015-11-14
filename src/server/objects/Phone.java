@@ -1,9 +1,13 @@
 package server.objects;
 
+import java.io.Serializable;
+
 /**
  * Created by clark on 10/7/15.
  */
-public class Phone {
+public class Phone  implements Serializable {
+
+    private static final long serialVersionUID = 7863262235394607247L;
     private String number;
 
     public Phone(){

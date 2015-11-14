@@ -1,6 +1,10 @@
 package client.controllers;
 
-import server.controllers.ServerInterface;
+import server.controllers.ManagerServerInterface;
+import server.objects.Address;
+import server.objects.Employee;
+import server.objects.Phone;
+import server.objects.ROLE;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -22,12 +26,15 @@ public class Client {
 
 
     public void runClient() throws RemoteException {
-        ServerInterface si = null;
+        ManagerServerInterface si = null;
         try {
-            si = (ServerInterface) Naming.lookup("rmi://localhost:" + PORT_NUMBER + "/server");
+            si = (ManagerServerInterface) Naming.lookup("rmi://localhost:" + PORT_NUMBER + "/server");
             System.out.println("Client is connected to server");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (si != null){
+            si.addEmployeeToStore(new Employee("Jimmy", new Address("street3", "city3", "state3", "zip3"), new Phone("phone3"), "jimmy", "111", ROLE.MANAGER));
         }
         System.out.println("Employees: " + '\n' + si.printEmployees());
 
