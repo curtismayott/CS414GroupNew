@@ -29,7 +29,7 @@ public class Client {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Employees: " + '\n' + si.printEmp());
+        System.out.println("Employees: " + '\n' + si.printEmployees());
 
     }
 }
