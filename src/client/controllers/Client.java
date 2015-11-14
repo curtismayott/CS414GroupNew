@@ -1,9 +1,6 @@
 package client.controllers;
 
-import server.controllers.AndroidServerInterface;
 import server.controllers.ServerInterface;
-import server.controllers.ServerRemote;
-import server.objects.Order;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;

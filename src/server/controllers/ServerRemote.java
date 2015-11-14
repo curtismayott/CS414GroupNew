@@ -5,13 +5,14 @@ import server.objects.Order;
 import server.objects.Person;
 import server.objects.Register;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Created by Jim on 11/13/2015.
  */
-public class ServerRemote extends UnicastRemoteObject implements ServerInterface, AndroidServerInterface, ClientServerInterface{
+public class ServerRemote extends UnicastRemoteObject implements ServerInterface, ManagerServerInterface, Remote {
 
     private WindowManager wm;
     private Register register;
@@ -34,22 +35,27 @@ public class ServerRemote extends UnicastRemoteObject implements ServerInterface
     }
 
     @Override
+    public Person createNewCustomer() throws RemoteException {
+        return null;
+    }
+
+    @Override
     public boolean addNewCustomer(Person customer) throws RemoteException {
         return false;
     }
 
     @Override
-    public boolean editCustomer(Person customer) throws RemoteException {
+    public Person findCustomer(String name) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public boolean saveCustomerProfile(Person customer) throws RemoteException {
         return false;
     }
 
     @Override
-    public String printString(Order order) throws RemoteException {
-        return "Working, created order";
-    }
-
-
-    public String printEmp() throws RemoteException {
+    public String printEmployees() throws RemoteException {
         String temp = "";
         for (Employee e : register.getEmployees()){
             temp += "Employee: " + e.getName() + '\n';
@@ -57,5 +63,20 @@ public class ServerRemote extends UnicastRemoteObject implements ServerInterface
             temp += "\n\n";
         }
         return temp;
+    }
+
+    @Override
+    public Order createNewOrder() throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public Employee createNewEmployee() throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public boolean addEmployeeToStore(Employee hire) throws RemoteException {
+        return false;
     }
 }
