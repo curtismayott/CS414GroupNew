@@ -1,5 +1,6 @@
 package server.controllers;
 
+import client.controllers.WindowManager;
 import server.objects.Order;
 import server.objects.Person;
 
@@ -11,8 +12,11 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ServerRemote extends UnicastRemoteObject implements ServerInterface, AndroidServerInterface{
 
+    private WindowManager manager;
+
     protected ServerRemote() throws RemoteException {
         super();
+        manager = new WindowManager();
     }
 
     @Override

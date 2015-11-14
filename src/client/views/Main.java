@@ -16,9 +16,11 @@ public class Main {
     public static void main(String[] args) throws RemoteException {
         Server ser = new Server(PORT_NUM);
         ser.runServer();
-        //Client client = new Client(PORT_NUM);
-        //client.runClient();
-        WindowManager manager = new WindowManager();
+        /*
+        Disabling while client/server is still tied together.
 
+        Client client = new Client(PORT_NUM);
+        client.runClient();
+        */
     }
 }
