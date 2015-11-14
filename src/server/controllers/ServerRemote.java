@@ -26,19 +26,16 @@ public class ServerRemote extends UnicastRemoteObject implements ServerInterface
     }
 
     @Override
-    public boolean addNewOrder(Order order) throws RemoteException {
+    public void addNewOrder(Order order) throws RemoteException {
         System.out.println("Placeholder for add new order");
-        return true;
     }
 
     @Override
-    public boolean addNewCustomer(Person customer) throws RemoteException {
-        return false;
+    public void addNewCustomer(Person customer) throws RemoteException {
     }
 
     @Override
-    public boolean saveCustomerProfile(Person customer) throws RemoteException {
-        return false;
+    public void saveCustomerProfile(Person customer) throws RemoteException {
     }
 
     @Override
@@ -53,71 +50,43 @@ public class ServerRemote extends UnicastRemoteObject implements ServerInterface
     }
 
     @Override
-    public boolean addEmployeeToStore(Employee hire) throws RemoteException {
-        if (!register.getEmployees().contains(hire)){
-            register.addEmployee(hire);
-            return true;
+    public String printMenu() throws RemoteException {
+        String temp = '\n' + "---SIZES---" + '\n';
+        for (PizzaSize ps : register.getCatalog().getSizes()){
+            temp += ps.getFullName() + "    Price: " + ps.getPrice() + '\n';
         }
-        return false;
-
-    }
-
-    @Override
-    public boolean removeEmployee(Employee fire) throws RemoteException {
-        if (register.getEmployees().contains(fire)){
-            register.removeEmployee(fire);
-            return true;
+        temp += '\n' + "---SAUCES---" + '\n';
+        for (Sauce s : register.getCatalog().getSauces()){
+            temp += s.getFullName() + '\n';
         }
-        return false;
+        temp += '\n' + "---TOPPINGS---" + '\n';
+        for (Topping pt : register.getCatalog().getToppings()){
+            temp += pt.getFullName() + '\n';
+        }
+        temp += '\n' + "---SIDES---" + '\n';
+        for (Side si : register.getCatalog().getSides()){
+            temp += si.getName() + "    Price: " + si.getPrice() + '\n';
+        }
+        return temp;
     }
 
     @Override
-    public boolean addSideItemToMenu(SideItem item) throws RemoteException {
-        return false;
+    public void addEmployeeToStore(Employee hire) throws RemoteException {
+        register.addEmployee(hire);
     }
 
     @Override
-    public boolean removeSideItemFromMEnu(SideItem item) throws RemoteException {
-        return false;
+    public void removeEmployee(Employee fire) throws RemoteException {
+        register.removeEmployee(fire);
     }
 
     @Override
-    public boolean addNewPizzaSize(PizzaSize size) throws RemoteException {
-        return false;
+    public void addItemToMenu(Object item){
+        register.getCatalog().addItem(item);
     }
 
     @Override
-    public boolean removePizzaSize(PizzaSize size) throws RemoteException {
-        return false;
-    }
-
-    @Override
-    public boolean addNewTopping(Topping topping) throws RemoteException {
-        return false;
-    }
-
-    @Override
-    public boolean removeTopping(Topping topping) throws RemoteException {
-        return false;
-    }
-
-    @Override
-    public boolean addNewSauce(Sauce sauce) throws RemoteException {
-        return false;
-    }
-
-    @Override
-    public boolean removeSauce(Sauce sauce) throws RemoteException {
-        return false;
-    }
-
-    @Override
-    public boolean addNewDrink(Drink drink) throws RemoteException {
-        return false;
-    }
-
-    @Override
-    public boolean removeDrink(Drink drink) throws RemoteException {
-        return false;
+    public void removeItemFromMenu(Object item){
+        register.getCatalog().deleteItem(item);
     }
 }

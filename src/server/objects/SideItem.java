@@ -1,9 +1,13 @@
 package server.objects;
 
+import java.io.Serializable;
+
 /**
  * Created by darkbobo on 10/26/15.
  */
-public class SideItem extends OrderItem {
+public class SideItem extends OrderItem  implements Serializable {
+
+    private static final long serialVersionUID = 6529685098267757690L;
     int itemID;
     String name;
 

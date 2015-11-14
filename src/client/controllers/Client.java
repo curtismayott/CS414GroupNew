@@ -1,10 +1,7 @@
 package client.controllers;
 
 import server.controllers.ManagerServerInterface;
-import server.objects.Address;
-import server.objects.Employee;
-import server.objects.Phone;
-import server.objects.ROLE;
+import server.objects.*;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -33,10 +30,10 @@ public class Client {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (si != null){
-            si.addEmployeeToStore(new Employee("Jimmy", new Address("street3", "city3", "state3", "zip3"), new Phone("phone3"), "jimmy", "111", ROLE.MANAGER));
-        }
-        System.out.println("Employees: " + '\n' + si.printEmployees());
+        si.addEmployeeToStore(new Employee("Jimmy", new Address("street3", "city3", "state3", "zip3"), new Phone("phone3"), "jimmy", "111", ROLE.MANAGER));
+        System.out.println(si.printEmployees());
+        si.addItemToMenu(new Side("Test", 11.99));
+        System.out.println(si.printMenu());
 
     }
 }
