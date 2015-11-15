@@ -14,7 +14,7 @@ public class ServerRemote extends UnicastRemoteObject implements ServerInterface
     private WindowManager wm;
     private Register register;
 
-    protected ServerRemote() throws RemoteException {
+    public ServerRemote() throws RemoteException {
         super();
         try {
             register = new Register();

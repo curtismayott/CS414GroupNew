@@ -32,7 +32,7 @@ public class Client {
         }
         si.addEmployeeToStore(new Employee("Jimmy", new Address("street3", "city3", "state3", "zip3"), new Phone("phone3"), "jimmy", "111", ROLE.MANAGER));
         System.out.println(si.printEmployees());
-        si.addItemToMenu(new Side("Test", 11.99));
+        si.addItemToMenu(new Side("Test", 1.99));
         System.out.println(si.printMenu());
 
     }

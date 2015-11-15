@@ -1,5 +1,6 @@
-package server.controllers;
+package server.objects;
 
+import server.controllers.ServerRemote;
 import server.objects.Register;
 
 import java.net.MalformedURLException;
