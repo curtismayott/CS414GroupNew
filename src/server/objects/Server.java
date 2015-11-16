@@ -1,13 +1,12 @@
 package server.objects;
 
+import lipermi.handler.CallHandler;
+import server.controllers.ManagerServerInterface;
+import server.controllers.ServerInterface;
 import server.controllers.ServerRemote;
-import server.objects.Register;
 
-import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 
 /**
  * Created by Jim on 11/13/2015.
@@ -27,9 +26,11 @@ public class Server {
 
     public void runServer() throws RemoteException {
         try {
-            LocateRegistry.createRegistry(PORT_NUMBER);
-            ServerRemote sr = new ServerRemote();
-            Naming.rebind("rmi://localhost:" + PORT_NUMBER + "/server", sr);
+            CallHandler ch = new CallHandler();
+            ManagerServerInterface sr = new ServerRemote();
+            ch.registerGlobal(ManagerServerInterface.class, sr);
+            lipermi.net.Server server = new lipermi.net.Server();
+            server.bind(PORT_NUMBER, ch);
             System.out.println("Server is running");
         } catch (Exception e) {
             e.printStackTrace();
