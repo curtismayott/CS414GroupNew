@@ -10,6 +10,9 @@ import java.rmi.RemoteException;
  */
 public interface ServerInterface extends Remote{
 
+    //test method to print off orders
+    public String printOrders() throws RemoteException ;
+
     //adds new order to PizzaSystem
     public void addNewOrder(Order order) throws RemoteException;
 

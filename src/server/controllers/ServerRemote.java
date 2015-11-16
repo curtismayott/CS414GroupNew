@@ -9,13 +9,12 @@ import java.rmi.server.UnicastRemoteObject;
 /**
  * Created by Jim on 11/13/2015.
  */
-public class ServerRemote extends UnicastRemoteObject implements ServerInterface, ManagerServerInterface, Remote {
+public class ServerRemote extends UnicastRemoteObject implements ServerInterface, ManagerServerInterface {
 
     private WindowManager wm;
     private Register register;
 
     public ServerRemote() throws RemoteException {
-        super();
         try {
             register = new Register();
             wm = new WindowManager(register);
@@ -23,6 +22,15 @@ public class ServerRemote extends UnicastRemoteObject implements ServerInterface
             e.printStackTrace();
         }
         register.setWindowManager(wm);
+    }
+
+    @Override
+    public String printOrders() {
+        String temp = "";
+        for (Order o : register.getOrders()){
+            temp += "Order: " + o.getOrderID() + '\t' + "Price: " + o.getAmountDue();
+        }
+        return temp;
     }
 
     @Override
