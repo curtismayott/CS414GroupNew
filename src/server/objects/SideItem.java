@@ -39,4 +39,15 @@ public class SideItem extends OrderItem  implements Serializable {
     public void setItemID(int itemID) {
         this.itemID = itemID;
     }
+
+    @Override
+    public void calculatePrice(){
+        double basePrice = 0;
+        if(special == null){
+            basePrice += getPrice();
+        }else{
+            basePrice += special.getDiscountedPrice();
+        }
+        setPrice(basePrice);
+    }
 }

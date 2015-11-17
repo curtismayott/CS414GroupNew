@@ -82,11 +82,16 @@ public class Pizza extends OrderItem implements Serializable {
         this.status = PIZZA_STATUS.COMPLETED;
     }
 
+    @Override
     public void calculatePrice(){
         // should abstract out so pricing calculations are dynamic
         double basePrice = 0;
-        basePrice += size.getPrice();
-        basePrice += toppings.size();
+        if(special == null) {
+            basePrice += size.getPrice();
+            basePrice += toppings.size();
+        }else{
+            basePrice += special.getDiscountedPrice();
+        }
         setPrice(basePrice);
     }
 
@@ -115,4 +120,13 @@ public class Pizza extends OrderItem implements Serializable {
         return  size.toString() + " " + sauce + " " + toppings.toString();
     }
 
+    @Override
+    public boolean setSpecial(Special s){
+        if(toppings.size() <= s.getNumToppings() && getSize() == s.getSize()) {
+            this.special = s;
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

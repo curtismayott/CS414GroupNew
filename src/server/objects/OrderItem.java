@@ -7,6 +7,8 @@ public class OrderItem {
     double price;
     int orderID;
     PIZZA_STATUS status;
+    Special special;
+
     public OrderItem(){
 
     }
@@ -54,5 +56,18 @@ public class OrderItem {
         if(this.status == PIZZA_STATUS.NEW) {
             this.status = PIZZA_STATUS.MAKELINE;
         }
+    }
+
+    public void calculatePrice(){
+
+    }
+
+    public boolean setSpecial(Special s){
+        this.special = s;
+        return true;
+    }
+
+    public Special getSpecial(){
+        return special;
     }
 }
