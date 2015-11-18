@@ -32,12 +32,12 @@ public class RegServer extends UnicastRemoteObject implements ServerInterface {
             server.addServerListener(new IServerListener() {
                 @Override
                 public void clientConnected(Socket socket) {
-                    System.out.println("Client Disconnected: " + socket.getInetAddress());
+                    System.out.println("Client Connected: " + socket.getInetAddress());
                 }
 
                 @Override
                 public void clientDisconnected(Socket socket) {
-                    System.out.println("Client Connected: " + socket.getInetAddress());
+                    System.out.println("Client Disconnected: " + socket.getInetAddress());
                 }
             });
         } catch (Exception e) {
