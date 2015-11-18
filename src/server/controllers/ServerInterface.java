@@ -8,17 +8,17 @@ import java.rmi.RemoteException;
 /**
  * Created by Jim on 11/13/2015.
  */
-public interface ServerInterface extends Remote{
+public interface ServerInterface{
 
     //test method to print off orders
-    public String printOrders() throws RemoteException ;
+    public String printOrders();
 
     //adds new order to PizzaSystem
-    public void addNewOrder(Order order) throws RemoteException;
+    public void addNewOrder(Order order);
 
     //adds new customer to PizzaSystem
-    public void addNewCustomer(Person customer) throws RemoteException;
+    public void addNewCustomer(Person customer);
 
     //saves edited customer profile
-    public void saveCustomerProfile(Person customer) throws RemoteException;
+    public void saveCustomerProfile(Person customer);
 }
