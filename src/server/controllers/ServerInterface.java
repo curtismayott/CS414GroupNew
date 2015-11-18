@@ -1,9 +1,9 @@
 package server.controllers;
 
+
 import server.objects.*;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /**
  * Created by Jim on 11/13/2015.
@@ -14,11 +14,26 @@ public interface ServerInterface{
     public String printOrders();
 
     //adds new order to PizzaSystem
-    public void addNewOrder(Order order);
+    public int addOrder(Order order);
 
     //adds new customer to PizzaSystem
     public void addNewCustomer(Person customer);
 
     //saves edited customer profile
     public void saveCustomerProfile(Person customer);
+
+    public Order getOrder(int OrderID);
+
+    public ArrayList<Topping> getMenuToppings();
+
+    public ArrayList<Sauce> getSauces();
+
+    public ArrayList<PizzaSize> getSizes();
+
+    public ArrayList<Side> getSides();
+
+    public ArrayList<Drink> getDrinks();
+
+    public void updateOrder(int orderID, Order order);
+
 }
