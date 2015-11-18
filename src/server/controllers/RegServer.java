@@ -75,7 +75,7 @@ public class RegServer extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
-    public ArrayList<Topping> getMenuToppings() {
+    public ArrayList<Topping> getToppings() {
         return null;
     }
 
