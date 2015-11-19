@@ -11,7 +11,6 @@ import java.net.Socket;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 
 /**
  * Created by Jim on 11/13/2015.
@@ -57,8 +56,8 @@ public class RegServer extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
-    public int addOrder(Order order) {
-        return 0;
+    public void addNewOrder(Order order) {
+        System.out.println("Placeholder for add new order");
     }
 
     @Override
@@ -67,41 +66,6 @@ public class RegServer extends UnicastRemoteObject implements ServerInterface {
 
     @Override
     public void saveCustomerProfile(Person customer) {
-    }
-
-    @Override
-    public Order getOrder(int OrderID) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Topping> getMenuToppings() {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Sauce> getSauces() {
-        return null;
-    }
-
-    @Override
-    public ArrayList<PizzaSize> getSizes() {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Side> getSides() {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Drink> getDrinks() {
-        return null;
-    }
-
-    @Override
-    public void updateOrder(int orderID, Order order) {
-
     }
 
     public String printMenu(){
