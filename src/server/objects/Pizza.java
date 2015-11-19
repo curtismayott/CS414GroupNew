@@ -121,12 +121,16 @@ public class Pizza extends OrderItem implements Serializable {
     }
 
     @Override
-    public boolean setSpecial(Special s){
-        if(toppings.size() <= s.getNumToppings() && getSize() == s.getSize()) {
-            this.special = s;
-            return true;
-        }else{
-            return false;
+    public boolean setSpecial(ArrayList<Special> specials){
+        double price = 1000;
+        for(Special s : specials) {
+            if (s.getItemType().equals("Pizza") && toppings.size() <= s.getNumToppings() && getSize() == s.getSize()) {
+                if(price > s.getDiscountedPrice()) {
+                    this.special = s;
+                    price = s.getDiscountedPrice();
+                }
+            }
         }
+        return false;
     }
 }
