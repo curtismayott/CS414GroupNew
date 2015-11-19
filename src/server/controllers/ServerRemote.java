@@ -1,13 +1,7 @@
 package server.controllers;
 
-import lipermi.exception.LipeRMIException;
-import lipermi.handler.CallHandler;
-import lipermi.net.IServerListener;
-import lipermi.net.Server;
 import server.objects.*;
 
-import java.io.IOException;
-import java.net.Socket;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -15,35 +9,19 @@ import java.rmi.server.UnicastRemoteObject;
 /**
  * Created by Jim on 11/13/2015.
  */
-public class RegServer extends UnicastRemoteObject implements ServerInterface {
+public class ServerRemote extends UnicastRemoteObject implements ServerInterface, ManagerServerInterface {
 
     private WindowManager wm;
-    private static Register register;
+    private Register register;
 
-    public RegServer() throws RemoteException {
+    public ServerRemote() throws RemoteException {
         try {
             register = new Register();
             wm = new WindowManager(register);
-            CallHandler ch = new CallHandler();
-            ch.registerGlobal(ServerInterface.class, this);
-            Server server = new Server();
-            server.bind(7777, ch);
-            server.addServerListener(new IServerListener() {
-                @Override
-                public void clientConnected(Socket socket) {
-                    System.out.println("Client Disconnected: " + socket.getInetAddress());
-                }
-
-                @Override
-                public void clientDisconnected(Socket socket) {
-                    System.out.println("Client Connected: " + socket.getInetAddress());
-                }
-            });
-        } catch (Exception e) {
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
         register.setWindowManager(wm);
-        System.out.println("Server Listening");
     }
 
     @Override
@@ -56,19 +34,31 @@ public class RegServer extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
-    public void addNewOrder(Order order) {
+    public void addNewOrder(Order order) throws RemoteException {
         System.out.println("Placeholder for add new order");
     }
 
     @Override
-    public void addNewCustomer(Person customer) {
+    public void addNewCustomer(Person customer) throws RemoteException {
     }
 
     @Override
-    public void saveCustomerProfile(Person customer) {
+    public void saveCustomerProfile(Person customer) throws RemoteException {
     }
 
-    public String printMenu(){
+    @Override
+    public String printEmployees() throws RemoteException {
+        String temp = "";
+        for (Employee e : register.getEmployees()){
+            temp += "Employee: " + e.getName() + '\n';
+            temp += '\t' + "username: " + e.getUserID() + "   password: " + e.getAuthentication();
+            temp += "\n\n";
+        }
+        return temp;
+    }
+
+    @Override
+    public String printMenu() throws RemoteException {
         String temp = '\n' + "---SIZES---" + '\n';
         int i = 0;
         for (PizzaSize ps : register.getCatalog().getSizes()){
@@ -96,5 +86,25 @@ public class RegServer extends UnicastRemoteObject implements ServerInterface {
             temp += si.getName() + "    Price: " + si.getPrice() + '\n';
         }
         return temp;
+    }
+
+    @Override
+    public void addEmployeeToStore(Employee hire) throws RemoteException {
+        register.addEmployee(hire);
+    }
+
+    @Override
+    public void removeEmployee(Employee fire) throws RemoteException {
+        register.removeEmployee(fire);
+    }
+
+    @Override
+    public void addItemToMenu(Object item){
+        register.getCatalog().addItem(item);
+    }
+
+    @Override
+    public void removeItemFromMenu(Object item){
+        register.getCatalog().deleteItem(item);
     }
 }

@@ -1,6 +1,7 @@
 package client.views;
 
-import server.controllers.RegServer;
+import client.controllers.Client;
+import server.objects.Server;
 
 import java.rmi.RemoteException;
 
@@ -9,9 +10,12 @@ import java.rmi.RemoteException;
  */
 public class Main {
 
-    private static final int PORT_NUM = 7777;
+    private static final int PORT_NUM = 9587;
 
     public static void main(String[] args) throws RemoteException {
-        RegServer ser = new RegServer();
+        Server ser = new Server(PORT_NUM);
+        ser.runServer();
+        Client client = new Client(PORT_NUM);
+        client.runClient();
     }
 }
