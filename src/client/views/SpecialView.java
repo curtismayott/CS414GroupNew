@@ -43,20 +43,20 @@ public class SpecialView extends MyJFrame {
         controller.registerComponent("saveButton", saveButton);
         controller.registerComponent("backButton", backButton);
         controller.registerComponent("itemTypeCombo", itemTypeCombo);
+        controller.registerComponent("sizeSideCombo", sizeSideCombo);
+        controller.registerComponent("numToppingsContainer", numToppingsContainer);
+        controller.registerComponent("numToppingsEditText", numToppingsEditText);
 
         specialList.addListSelectionListener(controller);
-        specialList.setCellRenderer(new ComponentMenuEdit());
+        specialList.setCellRenderer(new ComponentSpecial());
         cancelButton.addActionListener(controller);
         deleteButton.addActionListener(controller);
         saveButton.addActionListener(controller);
         backButton.addActionListener(controller);
-/*
-        typeComboBox.addItem("Topping");
-        typeComboBox.addItem("Size");
-        typeComboBox.addItem("Sauce");
-        typeComboBox.addItem("Side");
-        typeComboBox.addItem("Drink");
-        typeComboBox.addActionListener(controller);
-*/
+
+        itemTypeCombo.addItem("Pizza");
+        itemTypeCombo.addItem("Side");
+        itemTypeCombo.addActionListener(controller);
+        sizeSideCombo.addActionListener(controller);
     }
 }

@@ -1,6 +1,5 @@
 package server.controllers;
 
-import server.controllers.MyActionListener;
 import server.objects.*;
 
 import javax.swing.*;
@@ -12,7 +11,7 @@ import java.util.HashMap;
  * Created by darkbobo on 11/17/15.
  */
 public class SpecialListener extends MyActionListener {
-    Object item;
+    Special special;
 
     public SpecialListener() {
         components = new HashMap<>();
@@ -24,24 +23,22 @@ public class SpecialListener extends MyActionListener {
         System.out.println(command);
         switch (command) {
             case "comboBoxChanged":
-                if (((JComboBox) components.get("typeComboBox")).getSelectedItem().equals("Side")
-                        || ((JComboBox) components.get("typeComboBox")).getSelectedItem().equals("Drink")) {
-                    components.get("priceContainer").setVisible(true);
-                    components.get("shortnameContainer").setVisible(false);
-                } else if (((JComboBox) components.get("typeComboBox")).getSelectedItem().equals("Size")) {
-                    components.get("priceContainer").setVisible(true);
-                    components.get("shortnameContainer").setVisible(true);
-                } else {
-                    components.get("priceContainer").setVisible(false);
-                    components.get("shortnameContainer").setVisible(true);
+                if(components.get("itemTypeCombo").equals(actionEvent.getSource())) {
+                    if(((JComboBox)components.get("itemTypeCombo")).getSelectedItem().equals("Side")){
+                        setSideCombo();
+                    }else{
+                        setPizzaCombo();
+                    }
+                }else{
+
                 }
                 break;
             case "Back":
-                manager.activateWindow(manager.MENU_EDIT, manager.MANAGE_MAIN);
+                manager.activateWindow(manager.SPECIALS_EDIT, manager.MANAGE_MAIN);
                 break;
             case "Delete":
-                if (item != null) {
-                    model.getCatalog().deleteItem(item);
+                if (special != null) {
+                    model.getCatalog().deleteSpecial(special);
                 }
                 resetView();
                 break;
@@ -49,72 +46,33 @@ public class SpecialListener extends MyActionListener {
                 resetView();
                 break;
             case "Save":
-                String itemName = ((JTextArea) components.get("itemNameEditText")).getText();
-                String shortName = ((JTextArea) components.get("shortNameEditText")).getText();
-                String priceString = ((JTextArea) components.get("priceEditText")).getText();
-                double price;
+                String specialName = ((JTextField) components.get("nameEditText")).getText();
+                String priceString = ((JTextField) components.get("priceEditText")).getText();
+                String numToppings = ((JTextField) components.get("numToppingsEditText")).getText();
+                String itemType = ((JComboBox)components.get("itemTypeCombo")).getSelectedItem().toString();
                 try {
-                    switch (((JComboBox) components.get("typeComboBox")).getSelectedItem().toString()) {
-                        case "Topping":
-                            if (model.getCatalog().getEntireCatalog().contains(item)) {
-                                ((Topping) item).setFullName(itemName);
-                                ((Topping) item).setShortName(shortName);
-                                model.getCatalog().updateItem(((Topping) item).getItemID());
-                            } else {
-                                item = new Topping(shortName, itemName);
-                                model.getCatalog().addItem(item);
-                            }
-                            break;
-                        case "Size":
-                            price = Double.parseDouble(priceString);
-                            if (model.getCatalog().getEntireCatalog().contains(item)) {
-                                ((PizzaSize) item).setFullName(itemName);
-                                ((PizzaSize) item).setShortName(shortName);
-                                ((PizzaSize) item).setPrice(price);
-                                model.getCatalog().updateItem(((PizzaSize) item).getItemID());
-                            } else {
-                                item = new PizzaSize(shortName, itemName, price);
-                                model.getCatalog().addItem(item);
-                            }
-                            break;
-                        case "Sauce":
-                            if (model.getCatalog().getEntireCatalog().contains(item)) {
-                                ((Sauce) item).setFullName(itemName);
-                                ((Sauce) item).setShortName(shortName);
-                                model.getCatalog().updateItem(((Sauce) item).getItemID());
-                            } else {
-                                item = new Sauce(shortName, itemName);
-                                model.getCatalog().addItem(item);
-                            }
-                            break;
-                        case "Side":
-                            price = Double.parseDouble(priceString);
-                            if (model.getCatalog().getEntireCatalog().contains(item)) {
-                                ((Side) item).setName(itemName);
-                                ((Side) item).setPrice(price);
-                                model.getCatalog().updateItem(((Side) item).getItemID());
-                            } else {
-                                item = new Side(itemName, price);
-                                model.getCatalog().addItem(item);
-                            }
-                            break;
-                        case "Drink":
-                            price = Double.parseDouble(priceString);
-                            if (model.getCatalog().getEntireCatalog().contains(item)) {
-                                ((Drink) item).setName(itemName);
-                                ((Drink) item).setPrice(price);
-                                model.getCatalog().updateItem(((Drink) item).getItemID());
-                            } else {
-                                item = new Drink(itemName, price);
-                                model.getCatalog().addItem(item);
-                            }
-                            break;
+                    if (!model.getCatalog().getSpecials().contains(special)) {
+                        special = new Special();
                     }
+                    special.setDiscountedPrice(Double.parseDouble(priceString));
+                    special.setItemType(itemType);
+                    special.setName(specialName);
 
+                    if(((JComboBox)components.get("itemTypeCombo")).getSelectedItem().toString().equals("Pizza")){
+                        special.setSize(model.getCatalog().getSizeByFullName(((JComboBox)components.get("sizeSideCombo")).getSelectedItem().toString()));
+                        special.setNumToppings(Integer.parseInt(numToppings));
+                    }else{
+                        special.setSideItem(model.getCatalog().getSideItemByName(((JComboBox)components.get("sizeSideCombo")).getSelectedItem().toString()));
+                    }
+                    if(model.getCatalog().getSpecials().contains(special)){
+                        model.getCatalog().updateSpecial(special);
+                    }else{
+                        model.getCatalog().addSpecial(special);
+                    }
                     resetView();
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(view,
-                            "Price must be a number",
+                            "Price/NumToppings must be a number",
                             "Error",
                             JOptionPane.PLAIN_MESSAGE);
                 }
@@ -128,42 +86,56 @@ public class SpecialListener extends MyActionListener {
         JList list = (JList) event.getSource();
         if (list.getSelectedValue() != null) {
             // check
-            String buttonText = list.getSelectedValue().toString();
-            item = model.getCatalog().getItem(buttonText);
-            if (item instanceof PizzaSize) {
-                setView("Size", ((PizzaSize) item).getFullName(), ((PizzaSize) item).getShortName(), ((PizzaSize) item).getPrice());
-            } else if (item instanceof Sauce) {
-                setView("Sauce", ((Sauce) item).getFullName(), ((Sauce) item).getShortName(), -1.0);
-            } else if (item instanceof Topping) {
-                setView("Topping", ((Topping) item).getFullName(), ((Topping) item).getShortName(), -1.0);
-            } else if (item instanceof Side) {
-                setView("Side", ((SideItem) item).getName(), null, ((SideItem) item).getPrice());
-            } else if (item instanceof Drink) {
-                setView("Drink", ((SideItem) item).getName(), null, ((SideItem) item).getPrice());
-            }
-            components.get("typeComboBox").setEnabled(false);
+            special = (Special)list.getSelectedValue();
+            setView();
         }
     }
 
-    public void setView(String type, String itemName, String shortName, double price) {
-        ((JComboBox) components.get("typeComboBox")).setSelectedItem(type);
-        if (itemName != null) {
-            ((JTextArea) components.get("itemNameEditText")).setText(itemName);
+    public void setView() {
+        ((JComboBox) components.get("itemTypeCombo")).setSelectedItem(special.getItemType());
+        ((JTextField)components.get("priceEditText")).setText(Double.toString(special.getDiscountedPrice()));
+        ((JTextField) components.get("nameEditText")).setText(special.getName());
+        if(special.getItemType().equals("Pizza")){
+            components.get("numToppingsContainer").setVisible(true);
+            ((JTextField) components.get("numToppingsEditText")).setText(Integer.toString(special.getNumToppings()));
+        }else if(special.getItemType().equals("Side")){
+            components.get("numToppingsContainer").setVisible(false);
         }
-        if (shortName != null) {
-            ((JTextArea) components.get("shortNameEditText")).setText(shortName);
-        }
-        if (price != -1.0) {
-            ((JTextArea) components.get("priceEditText")).setText(Double.toString(price));
+        if(special.getSideItem() != null){
+            ((JComboBox) components.get("sizeSideCombo")).setSelectedItem(special.getSideItem().getName());
+        }else {
+            ((JComboBox) components.get("sizeSideCombo")).setSelectedItem(special.getSize().getFullName());
         }
     }
 
     public void resetView() {
-        ((JTextArea) components.get("itemNameEditText")).setText("");
-        ((JTextArea) components.get("shortNameEditText")).setText("");
-        ((JTextArea) components.get("priceEditText")).setText("");
-        ((JList) components.get("menuItemList")).setListData(model.getCatalog().getEntireCatalog().toArray());
-        components.get("typeComboBox").setEnabled(true);
-        item = null;
+        ((JTextField) components.get("priceEditText")).setText("");
+        ((JTextField) components.get("numToppingsEditText")).setText("");
+        ((JTextField) components.get("nameEditText")).setText("");
+        ((JList) components.get("specialList")).setListData(model.getCatalog().getSpecials().toArray());
+        components.get("itemTypeCombo").setEnabled(true);
+        ((JComboBox)components.get("itemTypeCombo")).setSelectedItem("Pizza");
+        components.get("numToppingsContainer").setVisible(true);
+        setPizzaCombo();
+        special = null;
+    }
+
+    public void setPizzaCombo(){
+        ((JComboBox)components.get("sizeSideCombo")).removeAllItems();
+        for(PizzaSize size : model.getCatalog().getSizes()){
+            ((JComboBox)components.get("sizeSideCombo")).addItem(size.getFullName());
+        }
+        components.get("numToppingsContainer").setVisible(true);
+    }
+
+    public void setSideCombo(){
+        ((JComboBox)components.get("sizeSideCombo")).removeAllItems();
+        for(Side side : model.getCatalog().getSides()){
+            ((JComboBox)components.get("sizeSideCombo")).addItem(side.getName());
+        }
+        for(Drink drink : model.getCatalog().getDrinks()){
+            ((JComboBox)components.get("sizeSideCombo")).addItem(drink.getName());
+        }
+        components.get("numToppingsContainer").setVisible(false);
     }
 }

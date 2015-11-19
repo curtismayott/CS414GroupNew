@@ -12,12 +12,14 @@ public class PizzaCatalog implements Serializable {
     ArrayList<Sauce> sauces;
     ArrayList<PizzaSize> sizes;
     ArrayList<SideItem> sides;
+    ArrayList<Special> specials;
 
     public PizzaCatalog(){
         toppings = new ArrayList<>();
         sauces = new ArrayList<>();
         sizes = new ArrayList<>();
         sides = new ArrayList<>();
+        specials = new ArrayList<>();
         initData();
     }
 
@@ -175,6 +177,65 @@ public class PizzaCatalog implements Serializable {
         return object;
     }
 
+    public ArrayList<Special> getSpecials(){
+        return specials;
+    }
+
+    public void addSpecial(Special special){
+        int nextID = -1;
+        for(Special s : specials){
+            if(s.getSpecialID() > nextID){
+                nextID = s.getSpecialID();
+            }
+        }
+        special.setSpecialID(nextID + 1);
+        specials.add(special);
+    }
+
+    public void updateSpecial(Special special){
+        for(int i = 0; i < specials.size(); i++){
+            if(special.getSpecialID() == specials.get(i).getSpecialID()){
+                specials.set(i, special);
+            }
+        }
+    }
+
+    public PizzaSize getSizeByFullName(String fullName){
+        for(PizzaSize size : sizes){
+            if(size.getFullName().equals(fullName)){
+                return size;
+            }
+        }
+        return null;
+    }
+
+    public SideItem getSideItemByName(String name){
+        for(SideItem sideItem : getSides()){
+            if(sideItem.getName().equals(name)){
+                return sideItem;
+            }
+        }
+        for(SideItem sideItem : getDrinks()){
+            if(sideItem.getName().equals(name)){
+                return sideItem;
+            }
+        }
+        return null;
+    }
+
+    public Special getSpecial(int specialID){
+        for(Special s : specials){
+            if(s.getSpecialID() == specialID){
+                return s;
+            }
+        }
+        return null;
+    }
+
+    public void deleteSpecial(Special special){
+        specials.remove(special);
+    }
+
     private void initData(){
         addItem(new Topping("A", "Anchovies"));
         addItem(new Topping("B", "Beef"));
@@ -212,5 +273,6 @@ public class PizzaCatalog implements Serializable {
         addItem(new Drink("Pepsi", 1.99));
         addItem(new Drink("Sierra Mist", 1.99));
         addItem(new Drink("Diet Pepsi", 1.99));
+
     }
 }
