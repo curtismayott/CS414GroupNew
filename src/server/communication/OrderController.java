@@ -30,11 +30,13 @@ public class OrderController implements HttpHandler {
             System.out.println(temp[0][1]);
             int i = Integer.parseInt(temp[0][1]);
             System.out.println(i);
-            order = new Order(i, new Person(), new ArrayList<Pizza>());
+            order = new Order(i, new Person("555", new Address("555", "555", "555", "555"), new Phone("555")), new ArrayList<Pizza>());
+            order.setOrderType(ORDER_TYPE.DELIVERY);
             register.addOrder(order);
             order.sendPizzasToMakeLine();
             order.sendSidesToMakeLine();
             register.updateOrder(order.getOrderID(), order);
+            ((OrderListListener)register.manager.getControllers().get("orderList")).resetView();
         }
 
 
