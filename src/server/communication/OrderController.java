@@ -25,7 +25,7 @@ public class OrderController implements HttpHandler {
         //send response with code 200 (A-OK)
         String[][] temp = parseRequest(uri.toString().replace("/order?", ""));
         Order order = null;
-        if (temp[0][0].equals("oid")){
+        if (temp[0][0].equals("order")){
             //TODO ADD GUI ORDERS REFRESH??
             System.out.println(temp[0][1]);
             int i = Integer.parseInt(temp[0][1]);
@@ -37,6 +37,9 @@ public class OrderController implements HttpHandler {
             order.sendSidesToMakeLine();
             register.updateOrder(order.getOrderID(), order);
             ((OrderListListener)register.manager.getControllers().get("orderList")).resetView();
+        }
+        else if (temp[0][0].equals("<customer>")){
+
         }
 
 
