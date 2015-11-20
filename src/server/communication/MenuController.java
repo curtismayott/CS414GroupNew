@@ -23,8 +23,34 @@ public class MenuController implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         URI uri = exchange.getRequestURI();
-        System.out.println(uri);
-        String response = getToppingsXML();
+        String call = uri.toString().replace("/menu/", "");
+        System.out.println(call);
+        String response = "";
+        switch (call) {
+            case "getToppings":
+                response = getToppingsXML();
+                break;
+            case "getSauces":
+                response = getSaucesXML();
+                break;
+            case "getSizes":
+                response = getSizesXML();
+                break;
+            case "getSides":
+                response = getSideItemXML();
+                break;
+            case "getSpecials":
+                response = getSpecialsXML();
+                break;
+
+            case "getMenu":
+                response += getToppingsXML();
+                response += getSaucesXML();
+                response += getSizesXML();
+                //response += getSideItemXML();
+                response += getSpecialsXML();
+            default:
+        }
 
         //send response with code 200 (A-OK)
         exchange.sendResponseHeaders(200, response.length());
@@ -54,6 +80,7 @@ public class MenuController implements HttpHandler {
             buff.append("</size>");
         }
         buff.append("</sizesList>");
+        System.out.println(buff.toString());
         return buff.toString();
     }
 
@@ -64,6 +91,7 @@ public class MenuController implements HttpHandler {
             getSpecialXML(ps);
         }
         buff.append("</specialsList>");
+        System.out.println(buff.toString());
         return buff.toString();
     }
 
@@ -89,6 +117,7 @@ public class MenuController implements HttpHandler {
         buff.append(sideItem.getStatus());
         buff.append("</stat>");
         buff.append("</item>");
+        System.out.println(buff.toString());
         return buff.toString();
     }
 
@@ -109,6 +138,7 @@ public class MenuController implements HttpHandler {
             buff.append("</topping>");
         }
         buff.append("</toppingList>");
+        System.out.println(buff.toString());
         return buff.toString();
     }
 
@@ -129,13 +159,14 @@ public class MenuController implements HttpHandler {
             buff.append("</sauce>");
         }
         buff.append("</sauceList>");
+        System.out.println(buff.toString());
         return buff.toString();
     }
 
     private String getSideItemXML() {
         StringBuffer buff = new StringBuffer();
         buff.append("<s_itemList>");
-        for (SideItem i : register.getCatalog().getSides()) {
+        for (Side i : register.getCatalog().getSides()) {
             buff.append("<s_item>");
             buff.append("<id>");
             buff.append(i.getItemID());
@@ -155,10 +186,10 @@ public class MenuController implements HttpHandler {
             buff.append("<stat>");
             buff.append(i.getStatus());
             buff.append("</stat>");
-
             buff.append("</s_item>");
         }
         buff.append("</s_itemList>");
+        System.out.println(buff.toString());
         return buff.toString();
     }
 
@@ -180,6 +211,7 @@ public class MenuController implements HttpHandler {
         buff.append(getItemXML(ps.getSideItem()));
         buff.append("</s_item>");
         buff.append("</special>");
+        System.out.println(buff.toString());
         return buff.toString();
     }
 }
