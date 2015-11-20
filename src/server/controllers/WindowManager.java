@@ -24,6 +24,7 @@ public class WindowManager implements WindowStateListener {
     public final String MANAGE_MAIN = "manageMain";
     public final String EMPLOYEE_EDIT = "employeeEdit";
     public final String MENU_EDIT = "menuEdit";
+    public final String SPECIALS_EDIT = "specialsEdit";
 
     public WindowManager(Register register){
         try {
@@ -56,7 +57,7 @@ public class WindowManager implements WindowStateListener {
             ((MakelineView)views.get(MAKE_LINE)).setOrderList();
             ((MakelineView)views.get(MAKE_LINE)).setItemList();
         }
-        if(newWindow.equals(EMPLOYEE_EDIT) || newWindow.equals(MENU_EDIT) || newWindow.equals(ORDER_EDIT) || newWindow.equals(ORDER_LIST)){
+        if(newWindow.equals(EMPLOYEE_EDIT) || newWindow.equals(MENU_EDIT) || newWindow.equals(ORDER_EDIT) || newWindow.equals(ORDER_LIST) || newWindow.equals(SPECIALS_EDIT)){
             (controllers.get(newWindow)).resetView();
         }
         if(newWindow.equals(MAIN_MENU)){
@@ -78,6 +79,7 @@ public class WindowManager implements WindowStateListener {
         views.put(MANAGE_MAIN, new ManagerMainView());
         views.put(EMPLOYEE_EDIT, new EmployeeEditView());
         views.put(MENU_EDIT, new MenuEditView());
+        views.put(SPECIALS_EDIT, new SpecialView());
 
         controllers = new HashMap<>();
         controllers.put(MAIN_MENU, new MainMenuListener());
@@ -89,6 +91,7 @@ public class WindowManager implements WindowStateListener {
         controllers.put(MANAGE_MAIN, new ManagerMainListener());
         controllers.put(EMPLOYEE_EDIT, new EmployeeEditListener());
         controllers.put(MENU_EDIT, new MenuEditListener());
+        controllers.put(SPECIALS_EDIT, new SpecialListener());
     }
 
     public void registerMVC(){

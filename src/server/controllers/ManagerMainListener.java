@@ -22,6 +22,9 @@ public class ManagerMainListener extends MyActionListener {
             case "Manage Menu":
                 manager.activateWindow(manager.MANAGE_MAIN, manager.MENU_EDIT);
                 break;
+            case "Manage Specials":
+                manager.activateWindow(manager.MANAGE_MAIN, manager.SPECIALS_EDIT);
+                break;
             case "Back":
                 manager.activateWindow(manager.MANAGE_MAIN, manager.MAIN_MENU);
                 break;

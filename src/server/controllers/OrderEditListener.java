@@ -42,6 +42,7 @@ public class OrderEditListener extends MyActionListener implements ListSelection
                 pizza.setToppingList(selectedToppings);
                 pizza.setSauce(model.getCatalog().getSauces().get(((JList) components.get("pizzaSaucesList")).getSelectedIndex()));
                 pizza.setSize(model.getCatalog().getSizes().get(((JList) components.get("pizzaSizesList")).getSelectedIndex()));
+                pizza.setSpecial(model.getCatalog().getSpecials());
                 pizza.calculatePrice();
                 if (((JButton)components.get("addPizzaButton")).getText().equals("Add")) {
                     order.addPizza(pizza);
@@ -139,7 +140,9 @@ public class OrderEditListener extends MyActionListener implements ListSelection
                         null,     //do not use a custom Icon
                         sides.toArray(),  //the titles of buttons
                         sides.toArray()[0]); //default button title*/
-                order.addSide(sides.get(sideSelection));
+                Side side = sides.get(sideSelection);
+                side.setSpecial(model.getCatalog().getSpecials());
+                order.addSide(side);
                 resetView();
                 break;
             case "Drinks":
@@ -152,7 +155,9 @@ public class OrderEditListener extends MyActionListener implements ListSelection
                         null,     //do not use a custom Icon
                         drinks.toArray(),  //the titles of buttons
                         drinks.toArray()[0]); //default button title*/
-                order.addSide(drinks.get(drinkSelection));
+                Drink drink = drinks.get(drinkSelection);
+                drink.setSpecial(model.getCatalog().getSpecials());
+                order.addSide(drink);
                 resetView();
                 break;
             case "Collect Order":

@@ -1,5 +1,7 @@
 package server.objects;
 
+import java.util.ArrayList;
+
 /**
  * Created by darkbobo on 10/27/15.
  */
@@ -62,8 +64,7 @@ public class OrderItem {
 
     }
 
-    public boolean setSpecial(Special s){
-        this.special = s;
+    public boolean setSpecial(ArrayList<Special> specials){
         return true;
     }
 
