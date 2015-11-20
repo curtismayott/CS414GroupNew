@@ -1,6 +1,5 @@
 package server.objects;
 
-import lipermi.handler.CallHandler;
 import server.controllers.ManagerServerInterface;
 import server.controllers.ServerInterface;
 import server.controllers.ServerRemote;
@@ -25,15 +24,6 @@ public class Server {
     }
 
     public void runServer() throws RemoteException {
-        try {
-            CallHandler ch = new CallHandler();
-            ManagerServerInterface sr = new ServerRemote();
-            ch.registerGlobal(ManagerServerInterface.class, sr);
-            lipermi.net.Server server = new lipermi.net.Server();
-            server.bind(PORT_NUMBER, ch);
             System.out.println("Server is running");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
