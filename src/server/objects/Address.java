@@ -5,9 +5,8 @@ import java.io.Serializable;
 /**
  * Created by darkbobo on 9/28/15.
  */
-public class Address implements Serializable{
+public class Address {
 
-    private static final long serialVersionUID = 7863262235394607247L;
     String streetAddress;
     String city;
     String state;

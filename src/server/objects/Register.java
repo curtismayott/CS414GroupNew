@@ -12,8 +12,8 @@ import java.util.ArrayList;
 /**
  * Created by darkbobo on 10/5/15.
  */
-public class Register implements Serializable {
-    private static final long serialVersionUID = 6529685098267757690L;
+public class Register {
+
     private ArrayList<Order> orders;
     private Employee loggedInEmployee;
     private int storeID;

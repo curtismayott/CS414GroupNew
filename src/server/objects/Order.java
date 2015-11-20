@@ -12,9 +12,8 @@ TODO functionality of updating order : have totalPaid, when user edits pizza, to
 */
 
 
-public class Order implements Serializable {
+public class Order {
 
-    private static final long serialVersionUID = 6529685098267757690L;
     private int orderID;
     private Person customer;
     boolean isPaidFor;
@@ -212,4 +211,5 @@ public class Order implements Serializable {
     public ORDER_TYPE getOrderType(){ return this.orderType; }
 
     public void setOrderType(ORDER_TYPE orderType){ this.orderType = orderType; }
+
 }

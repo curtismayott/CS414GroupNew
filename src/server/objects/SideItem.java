@@ -6,11 +6,12 @@ import java.util.ArrayList;
 /**
  * Created by darkbobo on 10/26/15.
  */
-public class SideItem extends OrderItem  implements Serializable {
+public class SideItem extends OrderItem {
 
-    private static final long serialVersionUID = 6529685098267757690L;
+
     int itemID;
     String name;
+    double price;
 
     public SideItem(){
         super();
@@ -18,6 +19,7 @@ public class SideItem extends OrderItem  implements Serializable {
     public SideItem(String name, double price){
         super(price);
         this.name = name;
+        this.price = price;
     }
 
     @Override
@@ -36,6 +38,8 @@ public class SideItem extends OrderItem  implements Serializable {
     public int getItemID() {
         return itemID;
     }
+
+    public double getPrice(){ return price;}
 
     public void setItemID(int itemID) {
         this.itemID = itemID;

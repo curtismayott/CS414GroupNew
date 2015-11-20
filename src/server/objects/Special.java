@@ -5,8 +5,7 @@ import java.io.Serializable;
 /**
  * Created by darkbobo on 11/17/15.
  */
-public class Special implements Serializable {
-    private static final long serialVersionUID = 6529685098267757690L;
+public class Special {
     int specialID;
     String itemType;
     String name;

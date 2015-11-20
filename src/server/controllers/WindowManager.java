@@ -29,7 +29,7 @@ public class WindowManager implements WindowStateListener {
     public WindowManager(Register register){
         try {
             this.register = register;
-            //register.setWindowManager(this);
+            register.setWindowManager(this);
             init();
             registerMVC();
             registerManager();
@@ -126,5 +126,4 @@ public class WindowManager implements WindowStateListener {
     public void passOrderID(String toController, int orderID){
         (controllers.get(toController)).setOrderID(orderID);
     }
-
 }

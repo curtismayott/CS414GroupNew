@@ -1,4 +1,4 @@
-package server.controllers;
+package server.communication;
 
 import server.objects.*;
 
