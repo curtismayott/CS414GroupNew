@@ -22,7 +22,7 @@ public class Register {
     CustomerListener customerListener;
     OrderEditListener orderEditListener;
     CollectPaymentListener collectPaymentListener;
-    private WindowManager manager;
+    public WindowManager manager;
     public String TOTAL_TEXT = "Total.........................";
     public Register() throws RemoteException{
         super();

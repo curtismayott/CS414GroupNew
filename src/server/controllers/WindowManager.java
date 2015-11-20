@@ -52,6 +52,10 @@ public class WindowManager implements WindowStateListener {
         System.out.println(windowEvent.getOldState());
     }
 
+    public HashMap<String, MyActionListener> getControllers(){
+        return this.controllers;
+    }
+
     public void activateWindow(String oldWindow, String newWindow){
         if(newWindow.equals(MAKE_LINE)){
             ((MakelineView)views.get(MAKE_LINE)).setOrderList();
