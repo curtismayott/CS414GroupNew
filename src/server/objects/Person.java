@@ -11,6 +11,7 @@ public class Person {
     private String name;
     private ArrayList<Address> addresses;
     private ArrayList<Phone> phoneNumbers;
+    double points;
 
     public Person(){
 
@@ -61,4 +62,11 @@ public class Person {
         this.addresses = addresses;
     }
 
+    public double getPoints() {
+        return points;
+    }
+
+    public void setPoints(double points) {
+        this.points = points;
+    }
 }

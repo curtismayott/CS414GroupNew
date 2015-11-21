@@ -158,6 +158,7 @@ public class Order {
     public void payForOrder(double amount){
         this.amountPaid += amount;
         this.isPaidFor = true;
+        customer.setPoints(customer.getPoints() + amount);
     }
 
     public double getAmountPaid(){
