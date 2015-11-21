@@ -15,11 +15,21 @@ public class Special {
     double discountedPrice;
 
     public Special(){
-
+        specialID = -1;
+        this.discountedPrice = 0;
+        itemType = null;
+        name = null;
+        size = null;
+        sideItem = null;
+        this.numToppings = 0;
     }
 
     public Special(PizzaSize size, int numToppings, double discountedPrice) {
+        specialID = -1;
+        name = null;
+        itemType = null;
         this.size = size;
+        sideItem = null;
         this.numToppings = numToppings;
         this.discountedPrice = discountedPrice;
     }

@@ -208,6 +208,15 @@ public class PizzaCatalog{
         return null;
     }
 
+    public Sauce getSauceByFullName(String fullName){
+        for(Sauce s : sauces){
+            if(s.getFullName().equals(fullName)){
+                return s;
+            }
+        }
+        return null;
+    }
+
     public SideItem getSideItemByName(String name){
         for(SideItem sideItem : getSides()){
             if(sideItem.getName().equals(name)){
@@ -273,5 +282,23 @@ public class PizzaCatalog{
         addItem(new Drink("Sierra Mist", 1.99));
         addItem(new Drink("Diet Pepsi", 1.99));
 
+    }
+
+    public Topping getToppingByName(String s) {
+        for(Topping t : toppings){
+            if(t.getFullName().equals(s)){
+                return t;
+            }
+        }
+        return null;
+    }
+
+    public Drink getDrinksByName(String s) {
+        for(Drink d : getDrinks()){
+            if(d.getName().equals(s)){
+                return d;
+            }
+        }
+        return null;
     }
 }

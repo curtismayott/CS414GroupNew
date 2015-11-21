@@ -47,7 +47,7 @@ public class MenuController implements HttpHandler {
                 response += getToppingsXML();
                 response += getSaucesXML();
                 response += getSizesXML();
-                //response += getSideItemXML();
+                response += getSideItemXML();
                 response += getSpecialsXML();
             default:
         }
@@ -69,10 +69,10 @@ public class MenuController implements HttpHandler {
             buff.append(ps.getItemID());
             buff.append("</id>");
             buff.append("<short>");
-            buff.append(ps.getShortName());
+            buff.append(ps.getShortName().replaceAll(" ", ""));
             buff.append("</short>");
             buff.append("<long>");
-            buff.append(ps.getFullName());
+            buff.append(ps.getFullName().replaceAll(" ", ""));
             buff.append("</long>");
             buff.append("<price>");
             buff.append(ps.getPrice());
@@ -88,7 +88,7 @@ public class MenuController implements HttpHandler {
         StringBuffer buff = new StringBuffer();
         buff.append("<specialsList>");
         for (Special ps : register.getCatalog().getSpecials()) {
-            getSpecialXML(ps);
+            buff.append(getSpecialXML(ps));
         }
         buff.append("</specialsList>");
         System.out.println(buff.toString());
@@ -193,25 +193,35 @@ public class MenuController implements HttpHandler {
         return buff.toString();
     }
 
-    private String getSpecialXML(Special ps) {
+    private StringBuffer getSpecialXML(Special ps) {
         StringBuffer buff = new StringBuffer();
-        buff.append("<special>");
-        buff.append("<disc_pr>");
-        buff.append(ps.getDiscountedPrice());
-        buff.append("</disc_pr>");
-        buff.append("<short>");
-        buff.append("<i_type>");
-        buff.append(ps.getItemType());
-        buff.append("</i_type>");
-        buff.append("</short>");
-        buff.append("<n_top>");
-        buff.append(ps.getNumToppings());
-        buff.append("</n_top>");
-        buff.append("<s_item>");
-        buff.append(getItemXML(ps.getSideItem()));
-        buff.append("</s_item>");
-        buff.append("</special>");
-        System.out.println(buff.toString());
-        return buff.toString();
+        if (ps != null) {
+            buff.append("<special>");
+            buff.append("<disc_pr>");
+            double temp2 = ps.getDiscountedPrice();
+            buff.append(ps.getDiscountedPrice());
+
+            buff.append("</disc_pr>");
+            buff.append("<short>");
+            buff.append("<i_type>");
+            String temp = ps.getItemType();
+            if (!(temp == null))
+                //buff.append(ps.getItemType());
+                buff.append("</i_type>");
+            buff.append("</short>");
+            buff.append("<n_top>");
+            Integer temp1 = ps.getNumToppings();
+            if (!(temp1 == null))
+                //buff.append(ps.getNumToppings());
+                buff.append("</n_top>");
+            buff.append("<s_item>");
+            SideItem temp3 = ps.getSideItem();
+            if (!(temp3 == null))
+                //buff.append(getItemXML(ps.getSideItem()));
+                buff.append("</s_item>");
+            buff.append("</special>");
+            System.out.println(buff.toString());
+        }
+        return buff;
     }
 }
