@@ -20,9 +20,7 @@ public class SizePushController implements HttpHandler {
         URI uri = exchange.getRequestURI();
         String response = "";
         XStream x = new XStream();
-        x.autodetectAnnotations(true);
         x.setClassLoader(PizzaSizesHolder.class.getClassLoader());
-        x.addImplicitCollection(PizzaSizesHolder.class, "sizes", PizzaSize.class);
         try {
             response = x.toXML(new PizzaSizesHolder(register.getCatalog().getSizes()));
         } catch (Exception e){

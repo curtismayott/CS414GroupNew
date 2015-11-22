@@ -20,9 +20,7 @@ public class SaucePushController implements HttpHandler {
         URI uri = exchange.getRequestURI();
         String response = "";
         XStream x = new XStream();
-        x.autodetectAnnotations(true);
         x.setClassLoader(SaucesHolder.class.getClassLoader());
-        x.addImplicitCollection(SaucesHolder.class, "sauces", Sauce.class);
         try {
             response = x.toXML(new SaucesHolder(register.getCatalog().getSauces()));
             System.out.println(response.toString());

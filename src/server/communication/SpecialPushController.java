@@ -20,9 +20,7 @@ public class SpecialPushController implements HttpHandler {
         URI uri = exchange.getRequestURI();
         String response = "";
         XStream x = new XStream();
-        x.autodetectAnnotations(true);
         x.setClassLoader(SpecialsHolder.class.getClassLoader());
-        //x.addImplicitCollection(SpecialsHolder.class, "specials", Special.class);
         response = x.toXML(new SpecialsHolder(register.getCatalog().getSpecials()));
         //send response with code 200 (A-OK)
         exchange.sendResponseHeaders(200, response.length());

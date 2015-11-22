@@ -20,7 +20,6 @@ public class SidePushController implements HttpHandler {
         URI uri = exchange.getRequestURI();
         String response = "";
         XStream x = new XStream();
-        x.autodetectAnnotations(true);
         x.setClassLoader(SideItemsHolder.class.getClassLoader());
         response = x.toXML(new SideItemsHolder(register.getCatalog().getSides()));
         //send response with code 200 (A-OK)
