@@ -44,33 +44,29 @@ public class test {
                 "  </side>\n" +
                 "</server.communication.SideItemsHolder>");
         String temp;
-        ArrayList<Side> list = new ArrayList<Side>();
+        ArrayList<Drink> drink = new ArrayList<>();
         while (sc.hasNextLine()) {
             temp = sc.nextLine();
-            if (temp.contains("price defined-in")) {
-                double Oprice = Double.parseDouble(temp.replaceAll("<.*?>", ""));
+            if (temp.contains("price")) {
+                temp = temp.replaceAll("<.*?>", "");
+                double OrderItemPrice = Double.parseDouble(temp.replaceAll("<.*?>", ""));
                 temp = sc.nextLine().trim();
-                int orderId = Integer.parseInt(temp.replaceAll("<.*?>", ""));
+                int orderID = Integer.parseInt(temp.replaceAll("<.*?>", ""));
                 temp = sc.nextLine().trim();
+                String status = temp.replaceAll("<.*?>", "");
                 temp = sc.nextLine().trim();
-                int oId = Integer.parseInt(temp.replaceAll("<.*?>", ""));
+                int orderItemId = Integer.parseInt(temp.replaceAll("<.*?>", ""));
                 temp = sc.nextLine().trim();
-                int iId = Integer.parseInt(temp.replaceAll("<.*?>", ""));
+                int itemId = Integer.parseInt(temp.replaceAll("<.*?>", ""));
                 temp = sc.nextLine().trim();
                 String name = temp.replaceAll("<.*?>", "");
-                temp = sc.nextLine().trim();
+                temp = sc.nextLine();
                 double price = Double.parseDouble(temp.replaceAll("<.*?>", ""));
                 temp = sc.nextLine().trim();
-                Side s = new Side(name, price);
-                s.setOrderID(orderId);
-                OrderItem oi = (OrderItem) s;
-                oi.setOrderID(iId);
-                oi.setItemID(oId);
-                oi.setPrice(Oprice);
-                oi.setStatus(PIZZA_STATUS.NEW);
-                list.add(s);
+
+                drink.add( new Drink(name, price));
             }
         }
-        System.out.println(list);
+        System.out.println(drink);
     }
 }
