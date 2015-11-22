@@ -91,6 +91,9 @@ public class Pizza extends OrderItem {
             basePrice += toppings.size();
         }else{
             basePrice += special.getDiscountedPrice();
+            if(toppings.size() > special.getNumToppings()) {
+                basePrice += toppings.size() - special.getNumToppings();
+            }
         }
         setPrice(basePrice);
     }
@@ -124,7 +127,7 @@ public class Pizza extends OrderItem {
     public boolean setSpecial(ArrayList<Special> specials){
         double price = 1000;
         for(Special s : specials) {
-            if (s.getItemType().equals("Pizza") && toppings.size() <= s.getNumToppings() && getSize() == s.getSize()) {
+            if (s.getItemType().equals("Pizza") && getSize() == s.getSize()) {
                 if(price > s.getDiscountedPrice()) {
                     this.special = s;
                     price = s.getDiscountedPrice();
