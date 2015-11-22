@@ -1,19 +1,21 @@
 package server.objects;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import server.controllers.CollectPaymentListener;
 import server.controllers.CustomerListener;
 import server.controllers.OrderEditListener;
 import server.controllers.WindowManager;
+import org.codehaus.jackson.annotate.JacksonAnnotation;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
  * Created by darkbobo on 10/5/15.
  */
-public class Register {
 
+public class Register {
+    @JsonIgnore
     private ArrayList<Order> orders;
     private Employee loggedInEmployee;
     private int storeID;
@@ -24,7 +26,7 @@ public class Register {
     CollectPaymentListener collectPaymentListener;
     public WindowManager manager;
     public String TOTAL_TEXT = "Total.........................";
-    public Register() throws RemoteException{
+    public Register() throws RemoteException {
         super();
         orders = new ArrayList<>();
         employees = new ArrayList<>();
@@ -84,11 +86,8 @@ public class Register {
         }
     }
 
-    public void setOrders(ArrayList<Order> orders) {
-        if(this.orders == null){
-            this.orders = new ArrayList<>();
-        }
-        this.orders.addAll(orders);
+    public void setCatalog(PizzaCatalog pc){
+        this.catalog = pc;
     }
 
     public ArrayList<Pizza> getMakelinePizzas(){

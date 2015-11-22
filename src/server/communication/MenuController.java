@@ -4,6 +4,8 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.apache.velocity.tools.generic.ValueParser;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.ObjectMapper;
 import server.objects.*;
 
 import java.io.ByteArrayOutputStream;
@@ -15,7 +17,7 @@ import java.rmi.RemoteException;
 import java.util.Map;
 
 public class MenuController implements HttpHandler {
-
+    @JsonIgnore
     Register register;
 
     public MenuController(Register reg) throws RemoteException { this.register = reg; }
@@ -26,35 +28,15 @@ public class MenuController implements HttpHandler {
         String call = uri.toString().replace("/menu/", "");
         System.out.println(call);
         String response = "";
-        switch (call) {
-            case "getToppings":
-                response = getToppingsXML();
-                break;
-            case "getSauces":
-                response = getSaucesXML();
-                break;
-            case "getSizes":
-                response = getSizesXML();
-                break;
-            case "getSides":
-                response = getSideItemXML();
-                break;
-            case "getSpecials":
-                response = getSpecialsXML();
-                break;
-
-            case "getMenu":
-                response += getToppingsXML();
-                response += getSaucesXML();
-                response += getSizesXML();
-                response += getSideItemXML();
-                response += getSpecialsXML();
-            default:
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            response = mapper.writeValueAsString(register.getCatalog());
+            System.out.println(response);
+        } catch (Exception e){
+            System.out.println(e.toString());
         }
-
         //send response with code 200 (A-OK)
         exchange.sendResponseHeaders(200, response.length());
-
         OutputStream os = exchange.getResponseBody();
         os.write(response.getBytes());
         os.close();

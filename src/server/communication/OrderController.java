@@ -2,6 +2,7 @@ package server.communication;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import server.controllers.OrderListListener;
 import server.objects.*;
 
@@ -12,9 +13,8 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class OrderController implements HttpHandler {
-
+    @JsonIgnore
     Register register;
-
     public OrderController(Register reg) throws RemoteException {
         this.register = reg;
     }

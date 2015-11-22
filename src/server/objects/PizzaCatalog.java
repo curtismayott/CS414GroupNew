@@ -1,5 +1,7 @@
 package server.objects;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -119,6 +121,7 @@ public class PizzaCatalog{
         }
     }
 
+    @JsonIgnore
     public int getNextItemID(){
         int nextItemID = 0;
         for(Object o : getEntireCatalog()){

@@ -1,5 +1,7 @@
 package server.objects;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import java.util.ArrayList;
 
 /**
@@ -9,6 +11,7 @@ public class OrderItem {
     double price;
     int orderID;
     PIZZA_STATUS status;
+    @JsonIgnore
     Special special;
 
     public OrderItem(){
