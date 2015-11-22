@@ -18,11 +18,20 @@ public class RunServer {
         WindowManager wm = new WindowManager(register);
 
 
-        ToppingsController sc = new ToppingsController(register);
-        server.createContext("/menu/toppings", sc);
+        ToppingPushController sc = new ToppingPushController(register);
+        server.createContext("/toppings", sc);
 
-        OrderController ic = new OrderController(register);
+        SaucePushController ic = new SaucePushController(register);
         server.createContext("/order", ic);
+
+        SidePushController sp = new SidePushController(register);
+        server.createContext("/sides", sp);
+
+        SizePushController si = new SizePushController(register);
+        server.createContext("/sizes", si);
+
+        SpecialPushController su = new SpecialPushController(register);
+        server.createContext("/specials", su);
 
         System.out.println("Server started..");
         server.start();

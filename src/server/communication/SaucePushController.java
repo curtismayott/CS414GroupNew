@@ -1,0 +1,41 @@
+package server.communication;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.thoughtworks.xstream.XStream;
+import server.objects.*;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URLDecoder;
+import java.rmi.RemoteException;
+
+public class SaucePushController implements HttpHandler {
+    Register register;
+    public SaucePushController(Register reg) throws RemoteException {
+        this.register = reg;
+    }
+
+
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+        URI uri = exchange.getRequestURI();
+        String response = "";
+        XStream x = new XStream();
+        x.autodetectAnnotations(true);
+        x.setClassLoader(SaucesHolder.class.getClassLoader());
+        x.addImplicitCollection(SaucesHolder.class, "sauces", Sauce.class);
+        try {
+            response = x.toXML(new SaucesHolder(register.getCatalog().getSauces()));
+        } catch (Exception e){
+            System.out.println(e.toString());
+        }
+        //send response with code 200 (A-OK)
+        exchange.sendResponseHeaders(200, response.length());
+        OutputStream os = exchange.getResponseBody();
+        os.write(response.getBytes());
+        os.close();
+    }
+}
