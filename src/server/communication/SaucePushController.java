@@ -7,17 +7,13 @@ import server.objects.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URLDecoder;
 import java.rmi.RemoteException;
 
 public class SaucePushController implements HttpHandler {
     Register register;
-    public SaucePushController(Register reg) throws RemoteException {
-        this.register = reg;
-    }
 
+    public SaucePushController(Register reg) throws RemoteException { this.register = reg; }
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -29,8 +25,9 @@ public class SaucePushController implements HttpHandler {
         x.addImplicitCollection(SaucesHolder.class, "sauces", Sauce.class);
         try {
             response = x.toXML(new SaucesHolder(register.getCatalog().getSauces()));
+            System.out.println(response.toString());
         } catch (Exception e){
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         //send response with code 200 (A-OK)
         exchange.sendResponseHeaders(200, response.length());

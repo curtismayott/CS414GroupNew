@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 @XStreamAlias("SPECIALSHOLDER")
 public class SpecialsHolder {
-    @XStreamImplicit(itemFieldName = "special")
+    @XStreamImplicit(itemFieldName = "specials")
     ArrayList<Special> s;
 
     public SpecialsHolder(ArrayList<Special> si) {

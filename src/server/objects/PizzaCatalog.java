@@ -262,7 +262,7 @@ public class PizzaCatalog{
         addItem(new Topping("G", "Green Pepper"));
         addItem(new Topping("I", "Artichokes"));
         addItem(new Topping("J", "Jalapenos"));
-        addItem(new Topping("K", "Bacon"));/*
+        addItem(new Topping("K", "Bacon"));
         addItem(new Topping("L", "Green Olives"));
         addItem(new Topping("M", "Mushrooms"));
         addItem(new Topping("N", "Chicken"));
@@ -272,7 +272,7 @@ public class PizzaCatalog{
         addItem(new Topping("S", "Sausage"));
         addItem(new Topping("U", "Sundried Tomatoes"));
         addItem(new Topping("V", "Feta"));
-        addItem(new Topping("W", "Garlic"));*/
+        addItem(new Topping("W", "Garlic"));
 
         addItem(new PizzaSize("S", "10\" Small", 3.99));
         addItem(new PizzaSize("M", "12\" Medium", 4.99));

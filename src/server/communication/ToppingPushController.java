@@ -27,7 +27,7 @@ public class ToppingPushController implements HttpHandler {
             response = x.toXML(new ToppingsHolder(register.getCatalog().getToppings()));
             System.out.println(response.toString());
         } catch (Exception e){
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         //send response with code 200 (A-OK)
         exchange.sendResponseHeaders(200, response.length());

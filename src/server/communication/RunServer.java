@@ -6,6 +6,7 @@ import server.objects.Register;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class RunServer {
 
@@ -19,19 +20,22 @@ public class RunServer {
 
 
         ToppingPushController sc = new ToppingPushController(register);
-        server.createContext("/toppings", sc);
+        server.createContext("/menu/toppings/", sc);
 
         SaucePushController ic = new SaucePushController(register);
         server.createContext("/order", ic);
 
         SidePushController sp = new SidePushController(register);
-        server.createContext("/sides", sp);
+        server.createContext("/menu/sides/", sp);
+
+        SaucePushController sa = new SaucePushController(register);
+        server.createContext("/menu/sauces/", sa);
 
         SizePushController si = new SizePushController(register);
-        server.createContext("/sizes", si);
+        server.createContext("/menu/sizes/", si);
 
         SpecialPushController su = new SpecialPushController(register);
-        server.createContext("/specials", su);
+        server.createContext("/menu/specials/", su);
 
         System.out.println("Server started..");
         server.start();

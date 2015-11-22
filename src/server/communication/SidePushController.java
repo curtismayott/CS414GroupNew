@@ -3,24 +3,17 @@ package server.communication;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.thoughtworks.xstream.XStream;
-import server.objects.Register;
-import server.objects.SideItem;
-import server.objects.Topping;
+import server.objects.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
 import java.rmi.RemoteException;
 
-/**
- * Created by Jim on 11/22/2015.
- */
 public class SidePushController implements HttpHandler {
     Register register;
-    public SidePushController(Register reg) throws RemoteException {
-        this.register = reg;
-    }
 
+    public SidePushController(Register reg) throws RemoteException { this.register = reg; }
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -32,8 +25,9 @@ public class SidePushController implements HttpHandler {
         x.addImplicitCollection(SideItemsHolder.class, "sides", SideItem.class);
         try {
             response = x.toXML(new SideItemsHolder(register.getCatalog().getSides()));
+            System.out.println(response.toString());
         } catch (Exception e){
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         //send response with code 200 (A-OK)
         exchange.sendResponseHeaders(200, response.length());
