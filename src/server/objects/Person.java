@@ -1,16 +1,21 @@
 package server.objects;
 
-import java.io.Serializable;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import java.util.ArrayList;
 
 /**
  * Created by clark on 10/7/15.
  */
+@XStreamAlias("PERSON")
 public class Person {
-
+    @XStreamAlias("name")
     private String name;
+    @XStreamAlias("addresses")
     private ArrayList<Address> addresses;
+    @XStreamAlias("phonenumbers")
     private ArrayList<Phone> phoneNumbers;
+    @XStreamAlias("points")
     double points;
 
     public Person(){

@@ -1,18 +1,24 @@
 package server.objects;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by darkbobo on 10/22/15.
  */
+@XStreamAlias("PIZZACATALOG")
 public class PizzaCatalog{
+    @XStreamImplicit(itemFieldName="toppings")
     ArrayList<Topping> toppings;
+    @XStreamImplicit(itemFieldName="sauces")
     ArrayList<Sauce> sauces;
+    @XStreamImplicit(itemFieldName="sizes")
     ArrayList<PizzaSize> sizes;
+    @XStreamImplicit(itemFieldName="sides")
     ArrayList<SideItem> sides;
+    @XStreamImplicit(itemFieldName="specials")
     ArrayList<Special> specials;
 
     public PizzaCatalog(){
@@ -121,7 +127,6 @@ public class PizzaCatalog{
         }
     }
 
-    @JsonIgnore
     public int getNextItemID(){
         int nextItemID = 0;
         for(Object o : getEntireCatalog()){
@@ -257,7 +262,7 @@ public class PizzaCatalog{
         addItem(new Topping("G", "Green Pepper"));
         addItem(new Topping("I", "Artichokes"));
         addItem(new Topping("J", "Jalapenos"));
-        addItem(new Topping("K", "Bacon"));
+        addItem(new Topping("K", "Bacon"));/*
         addItem(new Topping("L", "Green Olives"));
         addItem(new Topping("M", "Mushrooms"));
         addItem(new Topping("N", "Chicken"));
@@ -267,7 +272,7 @@ public class PizzaCatalog{
         addItem(new Topping("S", "Sausage"));
         addItem(new Topping("U", "Sundried Tomatoes"));
         addItem(new Topping("V", "Feta"));
-        addItem(new Topping("W", "Garlic"));
+        addItem(new Topping("W", "Garlic"));*/
 
         addItem(new PizzaSize("S", "10\" Small", 3.99));
         addItem(new PizzaSize("M", "12\" Medium", 4.99));

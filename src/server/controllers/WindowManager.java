@@ -1,6 +1,5 @@
 package server.controllers;
 import client.views.*;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import server.objects.Register;
 
 import javax.swing.*;
@@ -14,7 +13,6 @@ import java.util.HashMap;
 public class WindowManager implements WindowStateListener {
     HashMap<String,MyJFrame> views;
     HashMap<String, MyActionListener> controllers;
-    @JsonIgnore
     Register register;
     public final String MAIN_MENU = "mainMenu";
     public final String ORDER_EDIT = "orderEdit";

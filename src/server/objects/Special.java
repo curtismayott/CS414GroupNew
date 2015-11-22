@@ -1,17 +1,27 @@
 package server.objects;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import java.io.Serializable;
 
 /**
  * Created by darkbobo on 11/17/15.
  */
+@XStreamAlias("SPECIAL")
 public class Special {
+    @XStreamAlias("specialid")
     int specialID;
+    @XStreamAlias("itemtype")
     String itemType;
+    @XStreamAlias("name")
     String name;
+    @XStreamAlias("size")
     PizzaSize size;
+    @XStreamAlias("sideitem")
     SideItem sideItem;
+    @XStreamAlias("numtoppings")
     int numToppings;
+    @XStreamAlias("discountedprice")
     double discountedPrice;
 
     public Special(){

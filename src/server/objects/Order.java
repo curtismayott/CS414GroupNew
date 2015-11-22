@@ -1,5 +1,7 @@
 package server.objects;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,16 +13,23 @@ import java.util.ArrayList;
 TODO functionality of updating order : have totalPaid, when user edits pizza, total should be OrderTotal - TotalPaid
 */
 
-
-public class Order {
-
+@XStreamAlias("ORDER")
+public class Order{
+    @XStreamAlias("orderid")
     private int orderID;
+    @XStreamAlias("customer")
     private Person customer;
+    @XStreamAlias("ispaidfor")
     boolean isPaidFor;
+    @XStreamAlias("amountpaid")
     double amountPaid;
+    @XStreamAlias("pizzas")
     private ArrayList<Pizza> pizzas;
+    @XStreamAlias("sides")
     private ArrayList<SideItem> sides;
+    @XStreamAlias("ordertype")
     private ORDER_TYPE orderType;
+
     public Order() {
         pizzas = new ArrayList<>();
         sides = new ArrayList<>();
@@ -197,6 +206,7 @@ public class Order {
         }
         return tmpSides;
     }
+
     public ArrayList<OrderItem> getOrderItems(){
         ArrayList<OrderItem> items = new ArrayList<>();
         items.addAll(pizzas);

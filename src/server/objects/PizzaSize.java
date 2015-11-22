@@ -1,9 +1,13 @@
 package server.objects;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  * Created by darkbobo on 9/28/15.
  */
+@XStreamAlias("PIZZASIZE")
 public class PizzaSize extends Topping{
+    @XStreamAlias("price")
     double price;
 
     public PizzaSize(String shortName, double price) {

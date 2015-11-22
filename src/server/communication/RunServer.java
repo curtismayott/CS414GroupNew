@@ -18,8 +18,8 @@ public class RunServer {
         WindowManager wm = new WindowManager(register);
 
 
-        MenuController sc = new MenuController(register);
-        server.createContext("/menu", sc);
+        ToppingsController sc = new ToppingsController(register);
+        server.createContext("/menu/toppings", sc);
 
         OrderController ic = new OrderController(register);
         server.createContext("/order", ic);

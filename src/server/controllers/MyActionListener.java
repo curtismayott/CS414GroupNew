@@ -1,6 +1,5 @@
 package server.controllers;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import server.objects.Register;
 import client.views.MyJFrame;
 
@@ -16,7 +15,6 @@ import java.util.HashMap;
  */
 public class MyActionListener implements ActionListener, ListSelectionListener {
     public int orderID;
-    @JsonIgnore
     public Register model;
     HashMap<String, JComponent> components;
     WindowManager manager;

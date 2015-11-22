@@ -1,12 +1,19 @@
 package server.objects;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  * Created by darkbobo on 9/28/15.
  */
+@XStreamAlias("TOPPING")
 public class Topping {
+    @XStreamAlias("itemid")
     int itemID;
+    @XStreamAlias("shortname")
     String shortName;
+    @XStreamAlias("fullname")
     String fullName;
+
     public Topping(String shortName){
         this.shortName = shortName;
     }

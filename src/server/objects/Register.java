@@ -1,11 +1,9 @@
 package server.objects;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import server.controllers.CollectPaymentListener;
 import server.controllers.CustomerListener;
 import server.controllers.OrderEditListener;
 import server.controllers.WindowManager;
-import org.codehaus.jackson.annotate.JacksonAnnotation;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -15,7 +13,6 @@ import java.util.ArrayList;
  */
 
 public class Register {
-    @JsonIgnore
     private ArrayList<Order> orders;
     private Employee loggedInEmployee;
     private int storeID;

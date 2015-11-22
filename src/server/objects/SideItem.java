@@ -1,16 +1,19 @@
 package server.objects;
 
-import java.io.Serializable;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import java.util.ArrayList;
 
 /**
  * Created by darkbobo on 10/26/15.
  */
+@XStreamAlias("SIDEITEM")
 public class SideItem extends OrderItem {
-
-
+    @XStreamAlias("itemid")
     int itemID;
+    @XStreamAlias("name")
     String name;
+    @XStreamAlias("price")
     double price;
 
     public SideItem(){

@@ -1,12 +1,15 @@
 package server.objects;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import java.io.Serializable;
 
 /**
  * Created by clark on 10/7/15.
  */
+@XStreamAlias("PHONE")
 public class Phone {
-
+    @XStreamAlias("number")
     private String number;
 
     public Phone(){

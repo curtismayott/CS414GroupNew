@@ -1,15 +1,21 @@
 package server.objects;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import java.io.Serializable;
 
 /**
  * Created by darkbobo on 9/28/15.
  */
+@XStreamAlias("ADDRESS")
 public class Address {
-
+    @XStreamAlias("streetaddress")
     String streetAddress;
+    @XStreamAlias("city")
     String city;
+    @XStreamAlias("state")
     String state;
+    @XStreamAlias("zipcode")
     String zipcode;
 
     public Address(){
