@@ -80,4 +80,8 @@ public class OrderItem {
     public Special getSpecial(){
         return special;
     }
+
+    public void setItemID(int itemID) {
+        this.itemID = itemID;
+    }
 }

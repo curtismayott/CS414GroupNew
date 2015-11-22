@@ -25,7 +25,7 @@ public class Special {
     double discountedPrice;
 
     public Special(){
-        specialID = -1;
+        specialID = 0;
         this.discountedPrice = 0;
         itemType = null;
         name = null;

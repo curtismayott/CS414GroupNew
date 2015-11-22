@@ -23,7 +23,6 @@ public class SaucePushController implements HttpHandler {
         x.setClassLoader(SaucesHolder.class.getClassLoader());
         try {
             response = x.toXML(new SaucesHolder(register.getCatalog().getSauces()));
-            System.out.println(response.toString());
         } catch (Exception e){
             e.printStackTrace();
         }

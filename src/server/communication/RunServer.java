@@ -21,8 +21,8 @@ public class RunServer {
         ToppingPushController sc = new ToppingPushController(register);
         server.createContext("/menu/toppings/", sc);
 
-        SaucePushController ic = new SaucePushController(register);
-        server.createContext("/order", ic);
+        InOrderController ic = new InOrderController(register);
+        server.createContext("/order/in/", ic);
 
         SidePushController sp = new SidePushController(register);
         server.createContext("/menu/sides/", sp);
@@ -35,6 +35,9 @@ public class RunServer {
 
         SpecialPushController su = new SpecialPushController(register);
         server.createContext("/menu/specials/", su);
+
+        DrinkPushController dr = new DrinkPushController(register);
+        server.createContext("/menu/drinks/", dr);
 
         System.out.println("Server started..");
         server.start();

@@ -10,24 +10,18 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.rmi.RemoteException;
 
-public class ToppingPushController implements HttpHandler {
+public class DrinkPushController implements HttpHandler {
     Register register;
 
-    public ToppingPushController(Register reg) throws RemoteException { this.register = reg; }
+    public DrinkPushController(Register reg) throws RemoteException { this.register = reg; }
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         URI uri = exchange.getRequestURI();
         String response = "";
         XStream x = new XStream();
-        x.autodetectAnnotations(true);
-        x.setClassLoader(ToppingsHolder.class.getClassLoader());
-        x.addImplicitCollection(ToppingsHolder.class, "toppings", Topping.class);
-        try {
-            response = x.toXML(new ToppingsHolder(register.getCatalog().getToppings()));
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        x.setClassLoader(DrinksHolder.class.getClassLoader());
+        response = x.toXML(new DrinksHolder(register.getCatalog().getDrinks()));
         //send response with code 200 (A-OK)
         exchange.sendResponseHeaders(200, response.length());
         OutputStream os = exchange.getResponseBody();

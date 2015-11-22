@@ -216,15 +216,6 @@ public class PizzaCatalog{
         return null;
     }
 
-    public Sauce getSauceByFullName(String fullName){
-        for(Sauce s : sauces){
-            if(s.getFullName().equals(fullName)){
-                return s;
-            }
-        }
-        return null;
-    }
-
     public SideItem getSideItemByName(String name){
         for(SideItem sideItem : getSides()){
             if(sideItem.getName().equals(name)){
