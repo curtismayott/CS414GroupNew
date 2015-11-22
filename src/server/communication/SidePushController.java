@@ -22,13 +22,7 @@ public class SidePushController implements HttpHandler {
         XStream x = new XStream();
         x.autodetectAnnotations(true);
         x.setClassLoader(SideItemsHolder.class.getClassLoader());
-        x.addImplicitCollection(SideItemsHolder.class, "sides", SideItem.class);
-        try {
-            response = x.toXML(new SideItemsHolder(register.getCatalog().getSides()));
-            System.out.println(response.toString());
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        response = x.toXML(new SideItemsHolder(register.getCatalog().getSides()));
         //send response with code 200 (A-OK)
         exchange.sendResponseHeaders(200, response.length());
         OutputStream os = exchange.getResponseBody();

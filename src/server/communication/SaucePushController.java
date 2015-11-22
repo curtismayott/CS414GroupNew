@@ -16,7 +16,7 @@ public class SaucePushController implements HttpHandler {
     public SaucePushController(Register reg) throws RemoteException { this.register = reg; }
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {
+    public void handle(HttpExchange exchange){
         URI uri = exchange.getRequestURI();
         String response = "";
         XStream x = new XStream();
@@ -30,9 +30,13 @@ public class SaucePushController implements HttpHandler {
             e.printStackTrace();
         }
         //send response with code 200 (A-OK)
-        exchange.sendResponseHeaders(200, response.length());
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        try {
+            exchange.sendResponseHeaders(200, response.length());
+            OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

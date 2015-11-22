@@ -14,10 +14,9 @@ public class RunServer {
 
     public static void main(String[] args) throws IOException {
         InetSocketAddress isa=new InetSocketAddress(PORT_NUM);
-        HttpServer server=HttpServer.create(isa, 0);
+        HttpServer server= HttpServer.create(isa, 0);
         Register register = new Register();
         WindowManager wm = new WindowManager(register);
-
 
         ToppingPushController sc = new ToppingPushController(register);
         server.createContext("/menu/toppings/", sc);
