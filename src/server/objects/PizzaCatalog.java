@@ -300,4 +300,13 @@ public class PizzaCatalog{
         }
         return null;
     }
+
+    public Sauce getSauceByName(String sauceFull) {
+        for (Sauce s : sauces){
+            if (s.getFullName().equals(sauceFull)){
+                return s;
+            }
+        }
+        return null;
+    }
 }

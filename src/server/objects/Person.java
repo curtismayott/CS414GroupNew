@@ -74,4 +74,8 @@ public class Person {
     public void setPoints(double points) {
         this.points = points;
     }
+
+    public void addPhoneNumber(Phone p) {
+        this.phoneNumbers.add(phoneNumbers.size() + 1, (p));
+    }
 }

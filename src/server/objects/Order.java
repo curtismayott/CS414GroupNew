@@ -223,4 +223,7 @@ public class Order{
 
     public void setOrderType(ORDER_TYPE orderType){ this.orderType = orderType; }
 
+    public void setAmountPaid(double amountPaid) {
+        this.amountPaid = amountPaid;
+    }
 }
