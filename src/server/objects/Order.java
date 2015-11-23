@@ -65,12 +65,14 @@ public class Order{
     }
 
     @Override
-    public String toString(){
-        return getOrderID() + "   "
+    public String toString() {
+        String temp = getCustomer().getPhoneNumbers().get(0) + " ";
+        temp += getOrderID() + "   " + temp
                 + getCustomer().getPhoneNumbers().get(0)
                 + "   " + getCustomer().getName()
                 + "   " + getOrderTotal()
                 + "   " + getOrderType().toString();
+        return temp;
     }
 
     public int getOrderID() {

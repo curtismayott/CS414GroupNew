@@ -49,7 +49,12 @@ public class InOrderController implements HttpHandler {
         ArrayList<Address> addy = new ArrayList<Address>();
         person.setAddresses(addy);
         double amountPaid;
+        Phone phone = new Phone();
+        ArrayList<Phone> phones = new ArrayList<>();
+        phones.add(phone);
+        person.setPhoneNumbers(phones);
         Pizza pizza = new Pizza();
+        pizza.setStatus(PIZZA_STATUS.MAKELINE);
         while (sc.hasNext()) {
             temp = sc.nextLine();
             String[] line;
@@ -82,7 +87,7 @@ public class InOrderController implements HttpHandler {
                     line[0] = sc.nextLine();
                     line[1] = sc.nextLine();
                     line[2] = sc.nextLine();
-                    Phone ph = new Phone(line[0]);
+                    phone = new Phone(line[0]);
                 }while (!line[2].contains("/phoneNumbers"));
             }
             if (temp.contains("<points>")){

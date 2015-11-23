@@ -19,7 +19,8 @@ public class Person {
     double points;
 
     public Person(){
-
+        phoneNumbers = new ArrayList<>();
+        addresses = new ArrayList<>();
     }
     public Person(String name, Address address, Phone phone) {
         this.addresses = new ArrayList<Address>();
