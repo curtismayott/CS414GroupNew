@@ -54,6 +54,7 @@ public class InOrderController implements HttpHandler {
         ArrayList<Phone> phones = new ArrayList<>();
         phones.add(phone);
         person.setPhoneNumbers(phones);
+        order.getCustomer().setPhoneNumbers(phones);
         Pizza pizza = new Pizza();
         pizza.setStatus(PIZZA_STATUS.MAKELINE);
         while (sc.hasNext()) {
@@ -129,6 +130,7 @@ public class InOrderController implements HttpHandler {
                         toppings.add(top);
                     } while (!line[5].contains("</com.android.cs414groupnewandroid.objects.Pizza>"));
                     pizza.setToppingList(toppings);
+                    order.addPizza(pizza);
                 }
             }
             if (temp.contains("<com.android.cs414groupnewandroid.objects.Drink>")){
