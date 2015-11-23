@@ -22,172 +22,128 @@ public class InOrderController implements HttpHandler {
     }
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {
+    public void handle(HttpExchange exchange){
         URI uri = exchange.getRequestURI();
         String in = uri.getQuery();
         if (in != null) {
             parseOrder(in);
         }
         String response = "Order Received.";
-        exchange.sendResponseHeaders(200, response.length());
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        try {
+            exchange.sendResponseHeaders(200, response.length());
+            OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void parseOrder(String in) {
         Scanner sc = new Scanner(in);
-        //System.out.println(in);
-        String temp;
-        ArrayList<Drink> drink = new ArrayList<>();
-        ArrayList<Address> add = new ArrayList<>();
-        ArrayList<Phone> phones = new ArrayList<>();
-        ArrayList<Topping> tops = new ArrayList<>();
+        String temp = sc.nextLine();
         Order order = new Order();
-        double points;
-        Sauce sauce;
-        String fullSizeName = "";
-        String customerName = "";
-        Sauce tempSauce;
-        double itemPrice;
-        PizzaSize ps = null;
-        while (sc.hasNextLine()) {
+        Person person = new Person();
+        double points = 0;
+        ArrayList<Topping> toppings = new ArrayList<>();
+        ArrayList<Address> addy = new ArrayList<Address>();
+        person.setAddresses(addy);
+        double amountPaid;
+        Pizza pizza = new Pizza();
+        while (sc.hasNext()) {
             temp = sc.nextLine();
-            while (!temp.contains("objects.Address")) {
-                if (temp.contains("city")) {
-                    temp = temp.replaceAll("\\+", "");
-                    temp = temp.replaceAll("<.*?>", "");
-                    System.out.println(temp);
-                    temp = temp.replaceAll("<.*?>", "");
-                    String city = temp;
-                    temp = sc.nextLine().trim().replaceAll("<.*?>", "");
-                    String state = temp;
-                    temp = sc.nextLine().trim().replaceAll("<.*?>", "");
-                    String streetAddress = temp;
-                    temp = sc.nextLine().trim().replaceAll("<.*?>", "");
-                    String zipcode = temp;
-                    add.add(new Address(streetAddress, city, state, zipcode));
-                }
-                temp = sc.nextLine();
-            }/*
-            if (temp.contains("name")) {
-                temp = temp.trim().replaceAll("<.*?>", "");
-                customerName = temp;
-                temp = sc.nextLine();
-                temp = sc.nextLine();
-                temp = sc.nextLine();
+            String[] line;
+            if (temp.contains("amountPaid")) {
+                amountPaid = Double.parseDouble(temp.replaceAll("<.*?>", "").replaceAll("\\+", "") + 0);
+                order.setAmountPaid(amountPaid);
             }
-            if (temp.contains("number")) {
-                temp = temp.trim().replaceAll("<.*?>", "");
-                String number = temp;
-                Phone p = new Phone(number);
-                phones.add(p);
-                Person person = new Person();
-                person.setName(customerName);
-                person.setAddresses(add);
-                person.addPhoneNumber(p);
-                temp = sc.nextLine();
-                temp = sc.nextLine();
-                temp = sc.nextLine();
-                points = Double.parseDouble(temp.trim().replaceAll("<.*?>", ""));
+            if (temp.contains("<com.android.cs414groupnewandroid.objects.Address")) {
+                do {
+                    line = new String[6];
+                    line[0] = sc.nextLine();
+                    String city = line[0].replaceAll("<.*?>", "").replaceAll("\\+", "") + "";
+                    line[1] = sc.nextLine();
+                    String state = line[1].replaceAll("<.*?>", "").replaceAll("\\+", "") + "";
+                    line[2] = sc.nextLine();
+                    String address = line[2].replaceAll("<.*?>", "").replaceAll("\\+", "") + "";
+                    line[3] = sc.nextLine();
+                    String zip = line[3].replaceAll("<.*?>", "").replaceAll("\\+", "") + "";
+                    line[4] = sc.nextLine();
+                    line[5] = sc.nextLine();
+                    addy.add(new Address(address, city, state, zip));
+                }while (!line[5].contains("/addresses"));
             }
-            temp = sc.nextLine();
-            temp = sc.nextLine();
+            if (temp.contains("<name>")){
+                person.setName(temp.replaceAll("<.*?>", "").replaceAll("\\+", "") + "");
+            }
+            if (temp.contains("<com.android.cs414groupnewandroid.objects.Phone>")) {
+                do {
+                    line = new String[3];
+                    line[0] = sc.nextLine();
+                    line[1] = sc.nextLine();
+                    line[2] = sc.nextLine();
+                    Phone ph = new Phone(line[0]);
+                }while (!line[2].contains("/phoneNumbers"));
+            }
+            if (temp.contains("<points>")){
+                points = Double.parseDouble(temp.replaceAll("<.*?>", "").replaceAll("\\+", "") + "");
+                person.setPoints(points);
+            }
             if (temp.contains("isPaidFor")) {
-                String paidFor = temp.trim().replaceAll("<.*?>", "");
-                temp = sc.nextLine();
+                String isPaidFor = temp.replaceAll("<.*?>", "").replaceAll("\\+", "") + "";
+                order.setIsPaidFor(isPaidFor.equals("true"));
             }
-            if (temp.contains("orderID")) {
-                int orderID = Integer.parseInt(temp.trim().replaceAll("<.*?>", ""));
-                temp = sc.nextLine();
-                String orderType = temp.trim().replaceAll("<.*?>", "");
-                temp = sc.nextLine();
-                temp = sc.nextLine();
-                temp = sc.nextLine();
+            if (temp.contains("orderID")){
+                order.setOrderID(Integer.parseInt(temp.replaceAll("<.*?>", "").replaceAll("\\+", "") + ""));
             }
-            while (!temp.contains("pizzas")) {
-                if (temp.contains("itemID")) {
-                    int itemID = Integer.parseInt(temp.trim().replaceAll("<.*?>", ""));
-                    temp = sc.nextLine();
-                    temp = sc.nextLine();
-                    temp = sc.nextLine();
-                    temp = sc.nextLine();
-                    temp = sc.nextLine();
-                    double pizPrice = Double.parseDouble(temp.trim().replaceAll("<.*?>", ""));
-                    temp = sc.nextLine();
-                    temp = sc.nextLine();
-                    String sauceFull = temp.trim().replaceAll("<.*?>", "");
-                    tempSauce = model.getCatalog().getSauceByName(sauceFull);
-                    temp = sc.nextLine();
-                    temp = sc.nextLine();
-                    temp = sc.nextLine();
-                    temp = sc.nextLine();
-                    temp = sc.nextLine();
-                    if (temp.contains("fullName")) {
-                        fullSizeName = temp.trim().replaceAll("<.*?>", "");
-                        temp = sc.nextLine();
-                        temp = sc.nextLine();
-                        temp = sc.nextLine();
-                        temp = sc.nextLine();
-                        temp = sc.nextLine();
-                        temp = sc.nextLine();
-                        temp = sc.nextLine();
-
-                    }
-                    while (!temp.contains("toppings")) {
-                        if (temp.contains("fullName")) {
-                            String toppingFullName = temp.trim().replaceAll("<.*?>", "");
-                            temp = sc.nextLine();
-                            temp = sc.nextLine();
-                            temp = sc.nextLine();
-                            ps = model.getCatalog().getSizeByFullName(fullSizeName);
-                            Topping top = model.getCatalog().getToppingByName(toppingFullName);
-                            tops.add(top);
-                        }
-                        temp = sc.nextLine();
-                    }
-                    temp = sc.nextLine();
-                    Pizza pizza = new Pizza(tops, tempSauce, ps, PIZZA_STATUS.NEW, pizPrice);
-                    order.addPizza(pizza);
+            if (temp.contains("<com.android.cs414groupnewandroid.objects.Pizza>")) {
+                toppings = new ArrayList<>();
+                line = new String[20];
+                for (int i = 0; i < 20; i++) {
+                    line[i] = sc.nextLine();//.replaceAll("<.*?>", "");
+                    //System.out.println(line[i]);
                 }
-                temp = sc.nextLine();
-
+                pizza.setItemID(Integer.parseInt(line[0].replaceAll("<.*?>", "").replaceAll("\\+", "")));
+                pizza.setPrice(Double.parseDouble(line[5].replaceAll("<.*?>", "").replaceAll("\\+", "")));
+                pizza.setSauce(new Sauce(line[9].replaceAll("<.*?>", "").replaceAll("\\+", "").replaceAll("\\+", ""), line[7].replaceAll("<.*?>", "").replaceAll("\\+", "")));
+                pizza.getSauce().setItemID(Integer.parseInt(line[13].replaceAll("<.*?>", "").replaceAll("\\+", "")));
+                pizza.setSize(new PizzaSize(line[14].replaceAll("<.*?>", "").replaceAll("\\+", ""), line[12].replaceAll("<.*?>", "").replaceAll("\\+", ""), Double.parseDouble(line[15].replaceAll("<.*?>", "").replaceAll("\\+", ""))));
+                if (line[19].contains("<com.android.cs414groupnewandroid.objects.Topping>")) {
+                    do {
+                        line = new String[6];
+                        for (int i = 0; i < 6; i++) {
+                            line[i] = sc.nextLine();
+                        }
+                        Topping top = new Topping(line[2].replaceAll("<.*?>", "").replaceAll("\\+", ""), line[0].replaceAll("<.*?>", "").replaceAll("\\+", ""));
+                        top.setItemID(Integer.parseInt(line[1].replaceAll("<.*?>", "").replaceAll("\\+", "")));
+                        toppings.add(top);
+                    } while (!line[5].contains("</com.android.cs414groupnewandroid.objects.Pizza>"));
+                    pizza.setToppingList(toppings);
+                }
             }
-            temp = sc.nextLine();
-            temp = sc.nextLine();
-            temp = sc.nextLine();
-            temp = sc.nextLine();
-            temp = sc.nextLine();
-            while (!temp.contains("objects.OrderItem")) {
-                temp = sc.nextLine();
-                temp = sc.nextLine();
-                temp = sc.nextLine();
-                String drinkName = temp.replaceAll("<.*?>", "").trim();
-                temp = sc.nextLine();
-                Double drinkPrice = Double.parseDouble(temp.replaceAll("<.*?>", ""));
-                temp = sc.nextLine();
-                temp = sc.nextLine();
-                temp = sc.nextLine();
-                Drink tempDrink = model.getCatalog().getDrinksByName(drinkName);
-                tempDrink.setPrice(drinkPrice);
-                order.addSide(tempDrink);
+            if (temp.contains("<com.android.cs414groupnewandroid.objects.Drink>")){
+                do {
+                    line = new String[8];
+                    for (int i = 0; i < 8; i++) {
+                        line[i] = sc.nextLine();
+                    }
+                    Drink drink = new Drink(line[6].replaceAll("<.*?>", "").replaceAll("\\+", "") + " ", Double.parseDouble(line[7].replaceAll("<.*?>", "").replaceAll("\\+", "") + 0));
+                    order.addSide(drink);
+                } while (!line[7].contains("</com.android.cs414groupnewandroid.objects.Drink>"));
             }
-            temp = sc.nextLine();
-            temp = sc.nextLine();
-            temp = sc.nextLine();
-            temp = sc.nextLine();
-            temp = sc.nextLine();
-            temp = sc.nextLine();
-            while (!temp.contains("sides")) {
-                String itemName = temp.replaceAll("<.*?>", "");
-                temp = sc.nextLine();
-                itemPrice = Double.parseDouble(temp.replaceAll("<.*?>", ""));
-                temp = sc.nextLine();
-                temp = sc.nextLine();
+            if (temp.contains("<com.android.cs414groupnewandroid.objects.Side>")){
+                do {
+                    line = new String[8];
+                    for (int i = 0; i < 8; i++){
+                        line[i] = sc.nextLine();
+                    }
+                    Side side = new Side(line[6].replaceAll("<.*?>", "").replaceAll("\\+", "") + " ", Double.parseDouble(line[7].replaceAll("<.*?>", "").replaceAll("\\+", "") + 0));
+                    order.addSide(side);
+                } while (!line[7].contains("</com.android.cs414groupnewandroid.objects.Side>"));
             }
-            temp = sc.nextLine();
-            temp = sc.nextLine();*/
         }
+        model.addOrder(order);
+        System.out.println("Order added");
     }
 }
 
