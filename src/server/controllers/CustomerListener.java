@@ -56,12 +56,16 @@ public class CustomerListener extends MyActionListener {
             }else if(((JComboBox)components.get("orderTypeCombo")).getSelectedItem().equals("Delivery")){
                 order.setOrderType(ORDER_TYPE.DELIVERY);
             }
+            if(!verifyFields()) {
+                System.out.println("OrderID: " + orderID);
+                manager.passOrderID(manager.ORDER_EDIT, orderID);
+                manager.activateWindow(manager.CUSTOMER, manager.ORDER_EDIT);
+                orderID = -1;
+                order = null;
+            }else{
+                JOptionPane.showMessageDialog(view, "Error: must enter required information."); //default button title*/
 
-            System.out.println("OrderID: " + orderID);
-            manager.passOrderID(manager.ORDER_EDIT, orderID);
-            manager.activateWindow(manager.CUSTOMER, manager.ORDER_EDIT);
-            orderID = -1;
-            order = null;
+            }
         }else if(actionEvent.getActionCommand().equals("comboBoxChanged")){
             System.out.println(clicked);
             if(((JComboBox)clicked).getSelectedItem().equals("Carry Out")){
@@ -139,5 +143,26 @@ public class CustomerListener extends MyActionListener {
             clearEditTextFields();
         }
         components.get("phoneEditText").requestFocus();
+    }
+    public boolean verifyFields(){
+        boolean showDialog = false;
+        if(order.getOrderType() == ORDER_TYPE.CARRY_OUT &&
+                (order.getCustomer().getName().equals("")
+                        || order.getCustomer().getPhoneNumbers().get(0).getNumber().equals(""))
+                ){
+            showDialog = true;
+        }else if(order.getOrderType() == ORDER_TYPE.DELIVERY &&
+                (order.getCustomer().getName().equals("")
+                        || order.getCustomer().getAddress(0).getCity().equals("")
+                        || order.getCustomer().getAddress(0).getState().equals("")
+                        || order.getCustomer().getAddress(0).getZipcode().equals("")
+                        || order.getCustomer().getAddress(0).getStreetAddress().equals("")
+                )
+                ){
+            showDialog = true;
+        }else if(order.getOrderType() == ORDER_TYPE.PICK_UP && order.getCustomer().getName().equals("")){
+            showDialog = true;
+        }
+        return showDialog;
     }
 }
