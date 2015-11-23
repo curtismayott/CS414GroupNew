@@ -110,6 +110,7 @@ public class Order{
             this.pizzas = new ArrayList<>();
         }
         pizza.setStatus(PIZZA_STATUS.NEW);
+        System.out.println("Order " + pizza.toString());
         this.pizzas.add(pizza);
     }
 

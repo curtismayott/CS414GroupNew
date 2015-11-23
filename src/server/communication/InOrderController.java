@@ -1,6 +1,5 @@
 package server.communication;
 
-import com.sun.javafx.css.converters.BooleanConverter;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import server.objects.*;
@@ -129,8 +128,10 @@ public class InOrderController implements HttpHandler {
                         top.setItemID(Integer.parseInt(line[1].replaceAll("<.*?>", "").replaceAll("\\+", "")));
                         toppings.add(top);
                     } while (!line[5].contains("</com.android.cs414groupnewandroid.objects.Pizza>"));
+
                     pizza.setToppingList(toppings);
                     order.addPizza(pizza);
+                    System.out.println(pizza.getToppingList().toString());
                 }
             }
             if (temp.contains("<com.android.cs414groupnewandroid.objects.Drink>")){
@@ -154,6 +155,8 @@ public class InOrderController implements HttpHandler {
                 } while (!line[7].contains("</com.android.cs414groupnewandroid.objects.Side>"));
             }
         }
+        order.sendPizzasToMakeLine();
+        order.sendSidesToMakeLine();
         model.addOrder(order);
         System.out.println("Order added");
     }
