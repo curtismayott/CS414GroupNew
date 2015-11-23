@@ -45,11 +45,12 @@ public class InOrderController implements HttpHandler {
         Order order = new Order();
         Person person = new Person();
         double points = 0;
+        order.setCustomer(person);
         ArrayList<Topping> toppings = new ArrayList<>();
         ArrayList<Address> addy = new ArrayList<Address>();
         person.setAddresses(addy);
         double amountPaid;
-        Phone phone = new Phone();
+        Phone phone = new Phone(" ");
         ArrayList<Phone> phones = new ArrayList<>();
         phones.add(phone);
         person.setPhoneNumbers(phones);
@@ -100,6 +101,10 @@ public class InOrderController implements HttpHandler {
             }
             if (temp.contains("orderID")){
                 order.setOrderID(Integer.parseInt(temp.replaceAll("<.*?>", "").replaceAll("\\+", "") + ""));
+            }
+            if (temp.contains("<orderType>")){
+                temp = temp.replaceAll("<.*?>", "").replaceAll("\\+", "");
+                order.setOrderType(ORDER_TYPE.valueOf(temp));
             }
             if (temp.contains("<com.android.cs414groupnewandroid.objects.Pizza>")) {
                 toppings = new ArrayList<>();

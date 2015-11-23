@@ -66,11 +66,13 @@ public class Order{
 
     @Override
     public String toString() {
-        String temp = getCustomer().getPhoneNumbers().get(0) + " ";
-        temp += getOrderID() + "   " + temp
-                + getCustomer().getPhoneNumbers().get(0)
-                + "   " + getCustomer().getName()
-                + "   " + getOrderTotal()
+        String temp = "";
+        if ((getCustomer() != null) &&(getCustomer().getPhoneNumbers().get(0) != null)) {
+            temp = getCustomer().getPhoneNumbers().get(0).toString() + " "
+            + "   " + getCustomer().getName();
+        }
+        temp += getOrderID() + "   "
+                                + "   " + getOrderTotal()
                 + "   " + getOrderType().toString();
         return temp;
     }
